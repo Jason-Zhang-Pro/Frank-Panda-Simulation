@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
+
+  <xacro:include
+    filename="$(find franka_description)/robots/common/franka_arm.xacro"/>
+    <xacro:include
+    filename="$(find franka_description)/robots/common/franka_hand_actuated.xacro"/>
+
+  <xacro:franka_hand_actuated
+    arm_id="panda"
+    description_pkg="franka_description"
+    connected_to="panda_link8"
+    xyz="0 0 0"
+    rpy="0 0 ${-pi/4}"
+    tcp_xyz="0 0 0.1034"
+    tcp_rpy="0 0 0"
+    safety_distance="0"
+    gazebo="true"/>  
+
+  <link name="world"/>
+
+  <xacro:franka_arm
+    arm_id="panda"
+    description_pkg="franka_description"
+    connected_to="world"
+    xyz="0 0 0"
+    rpy="0 0 0"
+    gazebo="true"
+    safety_distance="0"
+    joint_limits="${xacro.load_yaml('$(find franka_description)/robots/panda/joint_limits.yaml')}"/>
+
+  <!-- Reusable control-interface definition for one joint -->
+  <xacro:macro name="controlled_joint" params="name initial">
+    <joint name="${name}">
+      <command_interface name="effort"/>
+      <state_interface name="position">
+        <param name="initial_value">${initial}</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+  </xacro:macro>
+
+  <ros2_control name="PandaSimSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+
+    <xacro:controlled_joint name="panda_joint1" initial="0.0"/>
+    <xacro:controlled_joint name="panda_joint2" initial="-0.785398"/>
+    <xacro:controlled_joint name="panda_joint3" initial="0.0"/>
+    <xacro:controlled_joint name="panda_joint4" initial="-2.356194"/>
+    <xacro:controlled_joint name="panda_joint5" initial="0.0"/>
+    <xacro:controlled_joint name="panda_joint6" initial="1.570796"/>
+    <xacro:controlled_joint name="panda_joint7" initial="0.785398"/>
+    <xacro:controlled_joint name="panda_finger_joint1" initial="0.04"/>
+    <xacro:controlled_joint name="panda_finger_joint2" initial="0.04"/>
+  </ros2_control>
+
+  <gazebo>
+    <plugin filename="/opt/ros/humble/lib/libgz_ros2_control-system.so"
+        name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <robot_param>robot_description</robot_param>
+      <robot_param_node>robot_state_publisher</robot_param_node>
+      <parameters>$(find franka_description)/config/controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+</robot>

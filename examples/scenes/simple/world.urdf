@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="panda_obstacle_world">
+  <link name="obstacle_world_root" />
+  <gazebo>
+    <static>true</static>
+  </gazebo>
+  <material name="floor">
+    <color rgba=".42 .45 .50 1" />
+  </material>
+  <material name="pillar">
+    <color rgba=".90 .35 .18 1" />
+  </material>
+  <material name="frame">
+    <color rgba=".20 .45 .80 1" />
+  </material>
+  <material name="wall">
+    <color rgba=".75 .65 .25 1" />
+  </material>
+  <material name="shelf">
+    <color rgba=".35 .65 .45 1" />
+  </material>
+  <material name="rock">
+    <color rgba=".55 .38 .68 1" />
+  </material>
+  <material name="target">
+    <color rgba=".95 .08 .08 1" />
+  </material>
+  <link name="floor">
+    <inertial>
+      <mass value="360.0" />
+      <inertia ixx="270.19199999999995" iyy="270.19199999999995" izz="540.0" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="3 3 0.08" />
+      </geometry>
+      <material name="floor" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="3 3 0.08" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="floor_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="floor" />
+    <origin xyz="0 0 -0.04" rpy="0 0 0" />
+  </joint>
+  <gazebo reference="floor">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <link name="pillar_left">
+    <inertial>
+      <mass value="4.313799888125" />
+      <inertia ixx="0.15643815552623308" iyy="0.15643815552623308" izz="0.009112902263664064" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder radius="0.065" length="0.65" />
+      </geometry>
+      <material name="pillar" />
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.065" length="0.65" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="pillar_left_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="pillar_left" />
+    <origin xyz="0.4 0.34 0.325" rpy="0 0 0" />
+  </joint>
+  <gazebo reference="pillar_left">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <link name="pillar_right">
+    <inertial>
+      <mass value="3.6501383668750003" />
+      <inertia ixx="0.09586936331498569" iyy="0.09586936331498569" izz="0.007710917300023439" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder radius="0.065" length="0.55" />
+      </geometry>
+      <material name="pillar" />
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.065" length="0.55" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="pillar_right_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="pillar_right" />
+    <origin xyz="0.54 -0.32 0.275" rpy="0 0 0" />
+  </joint>
+  <gazebo reference="pillar_right">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <link name="gate_left">
+    <inertial>
+      <mass value="2.688" />
+      <inertia ixx="0.159488" iyy="0.159488" izz="0.0028672000000000003" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.08 0.08 0.84" />
+      </geometry>
+      <material name="frame" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.08 0.08 0.84" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="gate_left_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="gate_left" />
+    <origin xyz="0.86 0.36 0.42" rpy="0 0 0" />
+  </joint>
+  <gazebo reference="gate_left">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <link name="gate_right">
+    <inertial>
+      <mass value="2.688" />
+      <inertia ixx="0.159488" iyy="0.159488" izz="0.0028672000000000003" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.08 0.08 0.84" />
+      </geometry>
+      <material name="frame" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.08 0.08 0.84" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="gate_right_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="gate_right" />
+    <origin xyz="0.86 -0.36 0.42" rpy="0 0 0" />
+  </joint>
+  <gazebo reference="gate_right">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <link name="gate_lintel">
+    <inertial>
+      <mass value="2.56" />
+      <inertia ixx="0.1378986666666667" iyy="0.0027306666666666673" izz="0.1378986666666667" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.08 0.8 0.08" />
+      </geometry>
+      <material name="frame" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.08 0.8 0.08" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="gate_lintel_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="gate_lintel" />
+    <origin xyz="0.86 0 0.88" rpy="0 0 0" />
+  </joint>
+  <gazebo reference="gate_lintel">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <link name="low_wall">
+    <inertial>
+      <mass value="3.3600000000000003" />
+      <inertia ixx="0.026572000000000002" iyy="0.05387200000000001" izz="0.030044000000000005" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.32 0.07 0.3" />
+      </geometry>
+      <material name="wall" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.32 0.07 0.3" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="low_wall_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="low_wall" />
+    <origin xyz="-0.35 -0.4 0.15" rpy="0 0 0.3" />
+  </joint>
+  <gazebo reference="low_wall">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <link name="target_pedestal">
+    <inertial>
+      <mass value="12.095999999999998" />
+      <inertia ixx="0.23587199999999997" iyy="0.23587199999999997" izz="0.11612159999999998" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.24 0.24 0.42" />
+      </geometry>
+      <material name="shelf" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.24 0.24 0.42" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="target_pedestal_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="target_pedestal" />
+    <origin xyz="0.62 0.12 0.21" rpy="0 0 0" />
+  </joint>
+  <gazebo reference="target_pedestal">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <link name="target_cube">
+    <inertial>
+      <mass value="0.10799999999999998" />
+      <inertia ixx="6.479999999999999e-05" iyy="6.479999999999999e-05" izz="6.479999999999999e-05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.06 0.06 0.06" />
+      </geometry>
+      <material name="target" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.06 0.06 0.06" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="target_cube_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="target_cube" />
+    <origin xyz="0.62 0.12 0.45" rpy="0 0 0" />
+  </joint>
+  <gazebo reference="target_cube">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <link name="place_pedestal">
+    <inertial>
+      <mass value="10" />
+      <inertia ixx=".2" iyy=".2" izz=".2" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size=".28 .28 .32" />
+      </geometry>
+      <material name="shelf" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size=".28 .28 .32" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="place_pedestal_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="place_pedestal" />
+    <origin xyz=".32 -.55 .16" rpy="0 0 0" />
+  </joint>
+</robot>
