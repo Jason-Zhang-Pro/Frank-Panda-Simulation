@@ -1,0 +1,42 @@
+algorithm,seed,stage,planner,plan_success,execution_arrived,search_s,first_solution_s,plan_pipeline_wall_s,raw_points,output_points,raw_length_rad,shortcut_length_rad,reference_s,checked_samples,validity_queries,mode,failure,plan_started_wall_s
+rrt_connect,1,approach,rrt_connect,1,1,0.005386,0.006,0.04991745948791504,17,266,2.3008,2.2211,5.29,957,140,bspline,,1792861464.161015
+rrt_connect,1,descend,cartesian_ik,1,1,,,0.11986589431762695,43,1013,,,19.47,2998,,cartesian_bspline,,1792861469.5188854
+rrt_connect,1,lift,cartesian_ik,1,1,,,0.1498126983642578,35,951,,,18.39,2820,,cartesian_bspline,,1792861490.5415542
+rrt_connect,1,transfer,rrt_connect,1,1,0.019041,0.019,0.18984389305114746,43,789,6.1849,3.1888,15.64,2358,552,bspline,,1792861509.106136
+rrt_connect,1,lower,cartesian_ik,1,,,,0.1799006462097168,42,1126,,,21.73,3337,,cartesian_bspline,failed: 执行超时或仿真时间重置，检查控制器状态,1792861524.9622197
+rrt_connect,2,approach,rrt_connect,1,1,0.004323,0.004,0.03983879089355469,17,266,2.3739,2.2214,5.29,957,144,bspline,,1792861689.9199612
+rrt_connect,2,descend,cartesian_ik,1,1,,,0.09991312026977539,43,1003,,,19.26,2966,,cartesian_bspline,,1792861695.2798746
+rrt_connect,2,lift,cartesian_ik,1,1,,,0.14980196952819824,35,951,,,18.39,2820,,cartesian_bspline,,1792861716.0600617
+rrt_connect,2,transfer,rrt_connect,1,1,0.059309,0.059,0.43990159034729004,58,1523,8.417,5.0571,30.36,4562,1772,bspline,,1792861734.6201563
+rrt_connect,2,lower,cartesian_ik,1,1,,,0.189833402633667,42,1137,,,21.96,3370,,cartesian_bspline,,1792861765.4409535
+rrt_connect,2,retreat,cartesian_ik,1,1,,,0.10994076728820801,50,1045,,,19.95,3086,,cartesian_bspline,,1792861789.5416965
+rrt_connect,2,home,rrt_connect,1,1,0.014824,0.015,0.17989587783813477,38,1155,5.4879,3.8277,23.01,3458,796,bspline,,1792861809.6325185
+rrt_connect,3,approach,rrt_connect,1,1,0.003268,0.003,0.029913663864135742,17,266,2.3745,2.2212,5.29,957,144,bspline,,1792862073.5362744
+rrt_connect,3,descend,cartesian_ik,1,1,,,0.0998990535736084,43,1001,,,19.22,2960,,cartesian_bspline,,1792862078.8860595
+rrt_connect,3,lift,cartesian_ik,1,1,,,0.15986895561218262,35,951,,,18.39,2820,,cartesian_bspline,,1792862099.6453273
+rrt_connect,3,transfer,rrt_connect,1,1,0.064359,0.064,0.18983936309814453,42,491,6.0884,3.2798,9.8,1470,2034,bspline,,1792862118.2147758
+rrt_connect,3,lower,cartesian_ik,1,,,,0.18992900848388672,42,1145,,,22.11,3394,,cartesian_bspline,failed: 执行超时或仿真时间重置，检查控制器状态,1792862128.2244692
+rrt,1,approach,rrt,1,1,1.02209,1.022,1.059098720550537,52,266,7.5941,2.2211,5.29,957,48986,bspline,,1792861403.9797776
+rrt,1,descend,cartesian_ik,1,1,,,0.10991501808166504,43,1003,,,19.25,2966,,cartesian_bspline,,1792861410.3553107
+rrt,1,lift,cartesian_ik,1,1,,,0.14976716041564941,35,951,,,18.39,2820,,cartesian_bspline,,1792861431.1428862
+rrt,1,transfer,,0,,5.006292,,5.027632236480713,,,,,,,,,failed: rrt 未找到精确路径：Approximate solution,1792861449.7034461
+rrt,2,approach,rrt,1,1,0.033854,0.034,0.06990337371826172,31,266,4.3845,2.2212,5.29,957,1552,bspline,,1792861632.8647807
+rrt,2,descend,cartesian_ik,1,1,,,0.10988569259643555,43,987,,,18.95,2920,,cartesian_bspline,,1792861638.2645006
+rrt,2,lift,cartesian_ik,1,1,,,0.14990544319152832,35,951,,,18.39,2820,,cartesian_bspline,,1792861658.743696
+rrt,2,transfer,,0,,5.009287,,5.0398523807525635,,,,,,,,,failed: rrt 未找到精确路径：Approximate solution,1792861677.3032935
+rrt,3,approach,rrt,1,1,0.030862,0.031,0.05987071990966797,26,266,3.6311,2.2211,5.29,957,1186,bspline,,1792862016.177815
+rrt,3,descend,cartesian_ik,1,1,,,0.09990477561950684,43,1013,,,19.45,2996,,cartesian_bspline,,1792862021.5474188
+rrt,3,lift,cartesian_ik,1,1,,,0.13988566398620605,35,951,,,18.39,2820,,cartesian_bspline,,1792862042.5261621
+rrt,3,transfer,,0,,5.016245,,5.0397789478302,,,,,,,,,failed: rrt 未找到精确路径：Approximate solution,1792862061.0852087
+rrt_star,1,approach,rrt_star,1,1,5.012666,3.662,5.049257040023804,52,266,7.5941,2.2212,5.29,957,57811,bspline,,1792861569.8835018
+rrt_star,1,descend,cartesian_ik,1,1,,,0.10992026329040527,43,1015,,,19.5,3004,,cartesian_bspline,,1792861580.2421567
+rrt_star,1,lift,cartesian_ik,1,1,,,0.14981842041015625,35,951,,,18.39,2820,,cartesian_bspline,,1792861601.2900445
+rrt_star,1,transfer,,0,,5.011532,,5.029629468917847,,,,,,,,,failed: rrt_star 未找到精确路径：Approximate solution,1792861619.8585932
+rrt_star,2,approach,rrt_star,1,1,5.013112,0.033,5.049436569213867,31,266,4.3846,2.2211,5.29,957,59909,bspline,,1792861954.0854063
+rrt_star,2,descend,cartesian_ik,1,1,,,0.09988975524902344,43,999,,,19.18,2954,,cartesian_bspline,,1792861964.4543996
+rrt_star,2,lift,cartesian_ik,1,1,,,0.14986944198608398,35,951,,,18.39,2820,,cartesian_bspline,,1792861985.1725953
+rrt_star,2,transfer,,0,,5.007342,,5.029586315155029,,,,,,,,,failed: rrt_star 未找到精确路径：Approximate solution,1792862003.7411373
+rrt_star,3,approach,rrt_star,1,1,5.006031,0.024,5.039876937866211,26,266,3.631,2.2212,5.29,957,59606,bspline,,1792862172.1339893
+rrt_star,3,descend,cartesian_ik,1,1,,,0.10991072654724121,43,1001,,,19.22,2962,,cartesian_bspline,,1792862182.4939234
+rrt_star,3,lift,cartesian_ik,1,1,,,0.15987229347229004,35,951,,,18.39,2820,,cartesian_bspline,,1792862203.2638285
+rrt_star,3,transfer,,0,,5.00663,,5.029956817626953,,,,,,,,,failed: rrt_star 未找到精确路径：Approximate solution,1792862221.833772

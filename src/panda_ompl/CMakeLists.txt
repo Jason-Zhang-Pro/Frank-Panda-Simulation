@@ -62,4 +62,8 @@ ament_target_dependencies(benchmark_node rclcpp)
 target_link_libraries(benchmark_node panda_planning_engine)
 install(TARGETS benchmark_node DESTINATION lib/${PROJECT_NAME})
 
+add_executable(gazebo_trial_node src/gazebo_trial_node.cpp)
+ament_target_dependencies(gazebo_trial_node rclcpp sensor_msgs trajectory_msgs tf2_msgs std_msgs std_srvs)
+install(TARGETS gazebo_trial_node DESTINATION lib/${PROJECT_NAME})
+
 ament_package()

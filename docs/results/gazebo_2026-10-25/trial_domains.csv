@@ -1,0 +1,10 @@
+algorithm,seed,ros_domain_id,ign_partition
+rrt,1,87,panda_benchmark_20261025
+rrt_connect,1,87,panda_benchmark_20261025
+rrt_star,1,87,panda_benchmark_20261025
+rrt,2,87,panda_benchmark_20261025
+rrt_connect,2,87,panda_benchmark_20261025
+rrt_star,2,92,panda_benchmark_20261025_rrt_star_2
+rrt,3,93,panda_benchmark_20261025_rrt_3
+rrt_connect,3,94,panda_benchmark_20261025_rrt_connect_3
+rrt_star,3,95,panda_benchmark_20261025_rrt_star_3

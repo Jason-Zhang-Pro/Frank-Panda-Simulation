@@ -1,4 +1,6 @@
 <launch>
+  <arg name="planning_timeout" default="15.0"/>
+  <arg name="seed" default="3"/>
   <arg name="gui" default="true"/>
   <arg name="auto_play" default="true"/>
   <arg name="planner_algorithm" default="rrt_connect"/>
@@ -22,6 +24,8 @@
     <param name="use_sim_time" value="true"/>
     <param name="world_urdf" value="$(var planning_share)/worlds/world.urdf"/>
     <param name="planner_algorithm" value="$(var planner_algorithm)"/>
+    <param name="seed" value="$(var seed)"/>
+    <param name="planning_timeout" value="$(var planning_timeout)"/>
     <param name="trajectory_smoothing" value="$(var trajectory_smoothing)"/>
     <param name="velocity_scale" value="$(var velocity_scale)"/>
     <param name="acceleration_limit" value="$(var acceleration_limit)"/>

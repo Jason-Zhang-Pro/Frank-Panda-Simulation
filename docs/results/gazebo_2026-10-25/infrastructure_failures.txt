@@ -1,0 +1,1 @@
+STARTUP_FAILED algorithm=rrt_star seed=2 log=/home/jasonz/panda_control_ws/results/gazebo_comparison_20261025/formal/rrt_star_seed2_launch.log
