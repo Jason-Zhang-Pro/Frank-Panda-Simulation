@@ -1,0 +1,27 @@
+START algorithm=rrt seed=1
+TRIAL_DONE success=0 wall_s=50.7673 pick_place_failed: failed: rrt 未找到精确路径：Approximate solution；保持夹爪指令
+START algorithm=rrt_connect seed=1
+TRIAL_DONE success=0 wall_s=97.7308 pick_place_failed: failed: 执行超时或仿真时间重置，检查控制器状态；保持夹爪指令
+START algorithm=rrt_star seed=1
+grep: /home/jasonz/panda_control_ws/results/gazebo_comparison_20261025/formal/rrt_star_seed1_launch.log: 没有那个文件或目录
+TRIAL_DONE success=0 wall_s=55.0172 pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令
+START algorithm=rrt seed=2
+TRIAL_DONE success=0 wall_s=49.4977 pick_place_failed: failed: rrt 未找到精确路径：Approximate solution；保持夹爪指令
+START algorithm=rrt_connect seed=2
+TRIAL_DONE success=1 wall_s=142.942 pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成
+START algorithm=rrt_star seed=2
+STARTUP_FAILED algorithm=rrt_star seed=2 log=/home/jasonz/panda_control_ws/results/gazebo_comparison_20261025/formal/rrt_star_seed2_launch.log
+KEEP completed algorithm=rrt seed=1
+KEEP completed algorithm=rrt_connect seed=1
+KEEP completed algorithm=rrt_star seed=1
+KEEP completed algorithm=rrt seed=2
+KEEP completed algorithm=rrt_connect seed=2
+START algorithm=rrt_star seed=2
+TRIAL_DONE success=0 wall_s=54.7052 pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令
+START algorithm=rrt seed=3
+TRIAL_DONE success=0 wall_s=49.9611 pick_place_failed: failed: rrt 未找到精确路径：Approximate solution；保持夹爪指令
+START algorithm=rrt_connect seed=3
+TRIAL_DONE success=0 wall_s=92.0155 pick_place_failed: failed: 执行超时或仿真时间重置，检查控制器状态；保持夹爪指令
+START algorithm=rrt_star seed=3
+TRIAL_DONE success=0 wall_s=54.7496 pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令
+DONE raw_results=/home/jasonz/panda_control_ws/results/gazebo_comparison_20261025/formal

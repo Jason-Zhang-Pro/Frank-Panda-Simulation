@@ -17,3 +17,6 @@ __pycache__/
 core
 core.*
 *.log
+
+# Preserve curated experiment evidence while ignoring generated runtime logs.
+!/docs/results/**/*.log
