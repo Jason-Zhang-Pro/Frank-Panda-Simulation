@@ -131,11 +131,7 @@ private:
       if(!internal&&(task_active_||grasp_locked_))throw std::runtime_error("抓放任务或携物状态下不允许独立运动");
       if(future_.valid()||executing_||servo_active_)throw std::runtime_error("已有规划或执行任务");
       fresh();
-      // The original Python planner must be disabled so it cannot overwrite
-      // references on the same teaching controller interface.
-      const auto nodes=get_node_names();
-      if(std::find(nodes.begin(),nodes.end(),"/panda_planner")!=nodes.end())
-        throw std::runtime_error("请用 ./start.sh planner_backend:=ompl_cpp 重启，避免同时运行两个规划器");
+      // The task owns the command interface; do not run a second planner.
       const auto goal=joint_goal?*joint_goal:get_parameter("goal_joint_positions").as_double_array();
       if(goal.size()!=7)throw std::runtime_error("goal_joint_positions 必须为七个弧度值");
       const double timeout=get_parameter("planning_timeout").as_double();

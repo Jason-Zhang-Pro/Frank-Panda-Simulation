@@ -13,4 +13,4 @@ Original integration/learning code has no project-wide reuse license selected (`
 
 ## Separately installed dependencies
 
-OMPL, MoveIt Core/FCL, Eigen, URDF/SRDFdom, ROS 2, ros2_control, Gazebo Fortress and ros_gz remain separately distributed libraries/tools under their respective licenses. This repository invokes their public APIs and does not vendor dependency binaries. The current project no longer uses PyBullet, NumPy, SciPy or pybind11 for planning/control. ROS/Xacro system tools may still require Python.
+OMPL, MoveIt Core/FCL, Eigen, URDF/SRDFdom, ROS 2, ros2_control, Gazebo Fortress and ros_gz remain separately distributed libraries/tools under their respective licenses. This repository invokes their public APIs and does not vendor dependency binaries.

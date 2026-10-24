@@ -1,6 +1,6 @@
 # Franka Panda：C++ 避障规划与物理抓放
 
-ROS 2 Humble / Gazebo Fortress 下的七自由度机械臂项目。通过 **OMPL 路径搜索 → shortcut → B 样条与时间缩放 → PD＋重力补偿**，完成抓取、携物避障、放置和归位。当前主线已替换早期 Python 实现；自有算法、控制和启动节点全部使用 C++，场景与启动配置使用 URDF / SDF / XML。
+ROS 2 Humble / Gazebo Fortress 下的七自由度机械臂项目。通过 **OMPL 路径搜索 → shortcut → B 样条与时间缩放 → PD＋重力补偿**，完成抓取、携物避障、放置和归位。算法、控制和启动节点使用 C++，场景与启动配置使用 URDF / SDF / XML。
 
 我围绕 Panda 抓放任务，完成了规划库接入、碰撞场景构建、轨迹生成、力矩控制和任务状态机的集成，并通过仿真实验迭代运动平滑性与执行效率。RRT 系列算法调用 OMPL 实现，重点工作在于工程集成、约束处理与实验分析。
 
@@ -8,7 +8,7 @@ ROS 2 Humble / Gazebo Fortress 下的七自由度机械臂项目。通过 **OMPL
 
 - 在本地 Gazebo 抓放实验中，约束 B 样条改善了下降、抬升和放置过程的运动连续性；随后提高轨迹限速、缩短阶段等待，观察到执行过程仍保持较好的平滑性。
 - 实现并试验了末端 P＋阻尼雅可比伪逆＋关节 PD 的在线抓放方案。下降阶段出现明显振荡，进一步调参未达到预期，因此选择 IK 直线路点＋约束 B 样条作为当前默认方案，保留实验代码用于后续分析。
-- 已编写 OMPL C++ RRT / RRT-Connect / RRT* 统一选择、CSV 对比工具、C++ 启动协调和 XML 启动配置。**最新迁移代码尚未完成编译与运行验证，三算法定量对比数据待采集。**
+- 已编写 OMPL C++ RRT / RRT-Connect / RRT* 统一选择、CSV 对比工具、C++ 启动协调和 XML 启动配置。**最新代码尚未完成编译与运行验证，三算法定量对比数据待采集。**
 - 下一步：探索 A*，先明确搜索空间、分辨率、启发函数与碰撞接口，再与采样规划作同条件比较。
 
 ## 架构
@@ -41,7 +41,7 @@ cd ~/panda_control_ws
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
-**从旧 Python 版本迁移时**，`panda_planning` 已由 ament_python 改为资源型 ament_cmake 包。先在原启动终端 Ctrl+C 停止旧实例；清理本工作区的生成目录，避免残留旧可执行文件：
+`panda_planning` 为资源型 ament_cmake 包。首次构建直接执行 `colcon build`；已有构建产物时，可先停止旧实例并清理生成目录，避免残留配置：
 
 ```bash
 # 仅在工作区根目录执行；删除的是可重新生成的构建产物。
@@ -76,7 +76,7 @@ ros2 topic echo /planner_status --qos-durability transient_local
 
 独立关节目标接口保留 `/ompl_plan`、`/ompl_execute`、`/ompl_move`；使用 `goal_joint_positions` 参数指定七个关节目标。抓放或携物状态禁止独立运动。`/open_gripper`、`/close_gripper` 仅在空闲、非携物状态可用。
 
-日志 `cartesian_bspline` 表示抓放平滑成功；`stop_fallback` 表示约束或碰撞复检失败，已回退分段停车轨迹。规划结果通过 `/ompl_planned_trajectory` 发布，便于外部可视化；当前版本未保留旧 Python Gazebo 路径绘制模块，机器人、障碍、方块和放置台仍在同一 Gazebo 场景中可见。
+日志 `cartesian_bspline` 表示抓放平滑成功；`stop_fallback` 表示约束或碰撞复检失败，已回退分段停车轨迹。规划结果通过 `/ompl_planned_trajectory` 发布，便于外部可视化。机器人、障碍、方块和放置台在同一 Gazebo 场景中可见。
 
 ## 常用参数
 

@@ -5,7 +5,7 @@
 | ROS 2 `rclcpp`、标准消息和服务 | 独立规划/控制/启动节点、状态话题、Trigger 任务服务 |
 | OMPL | 7D 状态空间、RRT / RRT-Connect / RRT*、路径长度目标、搜索预算与种子 |
 | MoveIt Core | RobotModel / RobotState、FK、Jacobian、PlanningScene、附着物体与碰撞矩阵 |
-| FCL（由 MoveIt 碰撞环境调用） | 自碰撞、静态世界、夹爪和携物检测；不靠 Gazebo/PyBullet 做规划碰撞判断 |
+| FCL（由 MoveIt 碰撞环境调用） | 自碰撞、静态世界、夹爪和携物检测；独立于物理仿真计算规划碰撞 |
 | URDF / SRDFdom | 机器人解析、关节限位、七轴规划组与语义模型 |
 | Eigen | 坐标变换、IK 数值求解、实验阻尼雅可比伪逆 |
 | ros2_control / effort_controllers | 接收七轴与双指力矩命令，JointStateBroadcaster 发布反馈 |
@@ -28,7 +28,7 @@
 - `startup_node`：通过桥接 ControlWorld 服务暂停单步，等待 inactive 配置，激活控制器并确认初始姿态与保持力矩；失败暂停世界并退出，launch 随之关闭。成功后保留节点作为启动协调进程。
 - `benchmark_node`：离线读取 URDF/world，输出单次查询记录；不会发布机器人命令。
 
-Python 项目节点、pybind11 绑定、Python 对比工具已移除。ROS/Xacro 工具本身可能依赖 Python，这是系统工具依赖，不代表项目控制/算法仍由 Python 实现。
+项目节点通过 C++ 库接口协作，场景和启动配置分别采用 URDF/SDF 与 XML。
 
 ## 尚未解决的边界
 
