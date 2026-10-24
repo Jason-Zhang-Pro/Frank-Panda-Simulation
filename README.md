@@ -19,10 +19,6 @@ ROS 2 Humble / Gazebo Fortress 下的七自由度机械臂项目。通过 **OMPL
 | **MoveIt Core** | 使用 `RobotModel`、`RobotState`、`PlanningScene` 构建机器人和世界模型，计算 FK/Jacobian，管理携物附着和允许接触规则；不依赖 `move_group` 服务 |
 | **FCL** | 通过 MoveIt 碰撞环境调用，检查机器人自碰撞、障碍碰撞和携带物体碰撞 |
 | **Eigen** | 坐标变换、矩阵运算、数值 IK，以及实验方案中的阻尼雅可比伪逆求解 |
-| **URDF / SRDFdom** | 解析机器人结构、关节限位、质量／质心及七轴规划组语义 |
-| **ROS 2 rclcpp** | 实现规划、控制、启动协调与基准节点，通过话题、参数和服务连接任务流程 |
-| **ros2_control / effort_controllers** | 通过关节组力矩控制器执行七轴和夹爪命令，通过 JointStateBroadcaster 获取反馈 |
-| **Gazebo Fortress / ros_gz** | 物理仿真、场景可视化、双指接触与方块位姿反馈，以及仿真时钟和世界控制桥接 |
 
 在这些库之上，我实现了抓放状态机、shortcut 路径简化、B 样条轨迹生成与时间缩放、控制插值复检、PD＋重力补偿，以及多算法对比工具。搜索算法直接使用 OMPL；碰撞判断通过 MoveIt/FCL 完成，避免混淆库能力与项目实现。
 
