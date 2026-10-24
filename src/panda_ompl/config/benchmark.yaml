@@ -1,0 +1,6 @@
+panda_benchmark:
+  ros__parameters:
+    # A simple smoke query, not evidence of difficult-scene performance.
+    # Replace with a collision-valid seven-joint start/goal for each scenario.
+    start: [0.0, -0.785398, 0.0, -2.356194, 0.0, 1.570796, 0.785398]
+    goal: [0.3, -0.785398, 0.0, -2.356194, 0.0, 1.570796, 0.785398]

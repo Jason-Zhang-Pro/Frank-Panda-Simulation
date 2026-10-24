@@ -1,107 +1,119 @@
-# Franka Panda: collision-aware pick and place
+# Franka Panda：C++ 避障规划与物理抓放
 
-A ROS 2 Humble / Gazebo Fortress learning project connecting sampling-based motion planning to a physical gripper and a custom joint torque controller. The focus is understanding the complete pipeline, its failure modes, and the effect of practical improvements.
+ROS 2 Humble / Gazebo Fortress 下的七自由度机械臂项目。通过 **OMPL 路径搜索 → shortcut → B 样条与时间缩放 → PD＋重力补偿**，完成抓取、携物避障、放置和归位。当前主线已替换早期 Python 实现；自有算法、控制和启动节点全部使用 C++，场景与启动配置使用 URDF / SDF / XML。
 
-**Current result:** a full pick–place–return cycle was demonstrated in the simpler scene. In the current complex scene, physical pickup, obstacle-aware transfer and placement were demonstrated, but a return-home search timed out in the extended test. This is a simulation prototype, with no real-robot validation.
+本项目重点是把库调用、碰撞检测、轨迹生成、控制与任务状态机接成完整流程，并记录实验中有效和无效的改动。不是对 RRT 或 B 样条算法原创性的声明。
 
-[中文探索与优化记录](docs/development_journey.md) · [Validation and limitations](docs/validation.md) · [抓取操作说明](docs/pick_and_place.md) · [复杂环境](docs/complex_world.md)
+## 当前进展与证据
 
-## Architecture
+- 用户在本地仿真中反馈：约束 B 样条抓放效果较好；提高限速、缩短阶段等待后效果仍较好。
+- 尝试过末端 P＋阻尼雅可比伪逆＋关节 PD 的在线抓放。用户反馈下降振荡，当前任务已切回 IK 直线路点＋约束 B 样条轨迹跟踪。实验实现保留供复盘。
+- 本次新增了 OMPL C++ RRT / RRT-Connect / RRT* 统一选择、CSV 对比工具、C++ 启动协调和 XML 启动迁移。**这些新增改动尚未编译或运行验证**；没有虚构成功率、耗时或最优性结论。
+- 下一步：探索 A*，先明确搜索空间、分辨率、启发函数与碰撞接口，再与采样规划作同条件比较。
 
-```mermaid
-flowchart LR
-    Task[Trigger task / goal] --> Planner[planner_node\nTask state machine]
-    Planner --> Search[RRT / RRT-Connect + shortcut]
-    Search <--> Collision[PyBullet DIRECT\nRobot + scene + carried cube]
-    Search --> Timing[Quintic trajectory + sampled checks]
-    Timing -->|/planned_trajectory| Control[control_node\nPD + gravity compensation]
-    Control -->|Arm and finger effort| Gazebo[Gazebo Fortress + ros2_control]
-    Gazebo -->|Joint states, object pose, contacts| Planner
-    Gazebo -->|Joint states| Control
-    Startup[startup\nPaused activation + feedback check] --> Gazebo
+## 架构
+
+```text
+任务服务 /pick_and_place
+        ↓
+planner_node：抓放状态机、规划与实际到位确认
+        ↓
+PlanningEngine：OMPL RRT / RRT-Connect / RRT*
+        ↓                     ↔ MoveIt RobotModel / RobotState / PlanningScene / FCL
+shortcut：无碰撞远端直连
+        ↓
+B 样条 → 时间缩放 → 实际控制插值碰撞及限速复检
+        ↓ /planned_trajectory
+control_node：五次 Hermite 插值 → 关节 PD＋重力补偿、夹爪力控制
+        ↓ /panda_effort_controller/commands
+ros2_control → Gazebo 物理仿真 → /joint_states
 ```
 
-Gazebo is the single visible simulation. PyBullet runs without a GUI as a collision/kinematics backend. Planning, control and startup are separate ROS nodes; search, trajectory generation and collision checking are Python modules within the planner process.
+B 样条负责圆滑几何路径，时间缩放负责速度与加速度，控制器的五次 Hermite 插值负责按位置/速度/加速度边界条件执行。二者不是互相替代的算法。
 
-## Run
+## 构建与启动
 
-Tested with Ubuntu 22.04, ROS 2 Humble and Gazebo Fortress. Use system Python with ROS, and leave Conda's base environment if it overrides Python libraries.
+需要 Ubuntu 22.04、ROS 2 Humble、Gazebo Fortress，以及与当前环境匹配的 `gz_ros2_control` 插件。模型当前沿用 `/opt/ros/humble/lib/libgz_ros2_control-system.so`，换发行版时需调整。依赖详情见 [架构](docs/architecture.md)。
 
 ```bash
-sudo apt update
-sudo apt install ros-humble-ros-gz ros-humble-gz-ros2-control \
-  ros-humble-ros2-control ros-humble-ros2-controllers \
-  ros-humble-xacro ros-humble-robot-state-publisher \
-  python3-colcon-common-extensions python3-pip python3-numpy \
-  python3-scipy python3-pytest
-/usr/bin/python3 -m pip install --user pybullet==3.2.7
-
-git clone https://github.com/Jason-Zhang-Pro/Frank-Panda-Simulation.git
-cd Frank-Panda-Simulation
 source /opt/ros/humble/setup.bash
-colcon build --base-paths src --symlink-install
+cd ~/panda_control_ws
+rosdep install --from-paths src --ignore-src -r -y
+```
+
+**从旧 Python 版本迁移时**，`panda_planning` 已由 ament_python 改为资源型 ament_cmake 包。先在原启动终端 Ctrl+C 停止旧实例；清理本工作区的生成目录，避免残留旧可执行文件：
+
+```bash
+# 仅在工作区根目录执行；删除的是可重新生成的构建产物。
+rm -rf build install log
+colcon build --base-paths src --symlink-install \
+  --cmake-args -Dompl_DIR=/opt/ros/humble/share/ompl/cmake
+source install/setup.bash
 ./start.sh
 ```
 
-The launch sequence configures controllers, activates them while stepping the paused simulator, waits for valid feedback and holding effort, then starts simulation. Run only one effort controller publisher. `./start.sh gui:=false` supports headless execution.
-
-In a second terminal, from the cloned directory:
+`start_cpp.sh` 保留为兼容入口。默认 RRT-Connect；切换算法：
 
 ```bash
-source /opt/ros/humble/setup.bash
-source install/setup.bash
+./start.sh planner_algorithm:=rrt
+./start.sh planner_algorithm:=rrt_star
+# 后台或启动完成后保持暂停：
+./start.sh gui:=false auto_play:=false
+```
+
+启动时 Gazebo 保持暂停，C++ `startup_node` 等待三个控制器配置完成，通过小步仿真激活并确认保持力矩后再播放。控制、规划、启动协调或 Gazebo 服务退出会触发 launch 关闭。启动脚本用锁避免重复实例；不要同时从其他终端绕过入口启动第二套仿真。
+
+## 执行与查看状态
+
+另一个已 source 工作区的终端：
+
+```bash
 ros2 service call /pick_and_place std_srvs/srv/Trigger '{}'
 ros2 topic echo /planner_status --qos-durability transient_local
 ```
 
-A successful Trigger response means **accepted**, not completed. Follow `/planner_status` for task progress, failures and final completion. Do not paste printed responses or logs back into the shell as commands.
+服务接受不代表任务完成。`planning` / `planned` / `executing` / `succeeded` 是阶段状态，`pick_place_succeeded` 才表示抓取、放置、松开和归位全部完成。超时、碰撞或接触失败有错误状态；携物失败保持夹爪指令，不强行继续。
 
-## Planning and execution
+独立关节目标接口保留 `/ompl_plan`、`/ompl_execute`、`/ompl_move`；使用 `goal_joint_positions` 参数指定七个关节目标。抓放或携物状态禁止独立运动。`/open_gripper`、`/close_gripper` 仅在空闲、非携物状态可用。
 
-- Default: bidirectional RRT-Connect, 15 s search budget, 0.15 rad step, 0.02 rad edge sampling, optional collision-checked shortcut (150 attempts / 2 s).
-- Seven arm joints are searched in joint space. Both the robot and attached cube are checked during transfer and return. Short vertical pickup/placement segments use local IK and checked interpolation.
-- Rest-to-rest quintic segments stop at each retained waypoint. Velocity is limited to 20% of model limits; acceleration is limited to 0.6 rad/s². This is neither time-optimal planning nor blended waypoint tracking.
-- Control uses `Kp(q_ref-q) + Kd(dq_ref-dq) + g(q)` with torque limits. Finger effort commands are capped at 5 N per finger; this is not a measured contact force.
-- The scene contains 27 geometric bodies, including the floor, tables and dynamic cube. The actual cube pose and finger contacts come from Gazebo.
+日志 `cartesian_bspline` 表示抓放平滑成功；`stop_fallback` 表示约束或碰撞复检失败，已回退分段停车轨迹。规划结果通过 `/ompl_planned_trajectory` 发布，便于外部可视化；本次未保留旧 Python Gazebo 路径绘制模块，机器人、障碍、方块和放置台仍在同一 Gazebo 场景中可见。
 
-Parameters can be set after startup, before requesting a task:
+## 常用参数
 
-```bash
-ros2 param set /panda_planner rrt_seed 3
-ros2 param set /panda_planner planner_algorithm rrt_connect
-ros2 param set /panda_planner shortcut_enabled true
-# For the original single-tree comparison:
-# ros2 param set /panda_planner planner_algorithm rrt
+| 参数 | 默认值 | 用途 |
+|---|---:|---|
+| `planner_algorithm` | `rrt_connect` | `rrt` / `rrt_connect` / `rrt_star` |
+| `planning_timeout` | 15 s | 搜索预算；不含 IK 与后处理全部时间 |
+| `shortcut_enabled` | true | 碰撞检测通过才直连远端路点 |
+| `trajectory_smoothing` | `bspline` | `stop` 可恢复原分段停车 |
+| `velocity_scale` | 0.3 | URDF 关节速度上限比例 |
+| `acceleration_limit` | 0.9 rad/s² | 参考加速度上限 |
+| `grasp_wait` | 1.4 s | 最短闭合等待，仍需实际接触 |
+| `release_wait` | 0.5 s | 最短释放等待，仍需实际张开 |
+
+规划参数通过 `ros2 param set /panda_ompl_planner ...` 修改，下次规划读取；等待参数下次任务开始读取。PD 和夹爪参数在控制实现及 `config/controller.yaml` 中。控制器只允许一份力矩发布者；目前是反馈驱动、最多约 100 Hz，未启用实验速度滤波或参考缓冲。
+
+## 目录
+
+```text
+src/
+├── franka_description/             Panda 模型、网格、ros2_control 配置与上游许可证
+├── panda_planning/                资源包：launch XML、world URDF/SDF
+└── panda_ompl/
+    ├── src/
+    │   ├── planner_node.cpp       ROS 接口、任务状态机、规划调度
+    │   ├── planning_engine.cpp    OMPL 选择、FK/IK、FCL、shortcut、旧时间分配
+    │   ├── bspline_trajectory.cpp B 样条、时间缩放、实际插值复检
+    │   ├── control_node.cpp       关节 PD、重力补偿、夹爪与反馈超时
+    │   ├── startup_node.cpp       暂停单步激活与启动协调
+    │   ├── benchmark_node.cpp     离线单查询、CSV 指标
+    │   └── cartesian_servo.cpp    未启用的雅可比抓放实验
+    ├── include/panda_ompl/        规划及控制模型接口
+    └── config/                   控制增益、对比起终点
+ tools/compare_planners.sh         多算法、多种子、后处理消融与汇总
+ docs/                            架构、比较方法、实验记录、后续计划
 ```
 
-Changing the seed reproduces search randomness only; physical simulation and execution are not guaranteed deterministic. The earlier simple scene is preserved in `examples/scenes/simple/`; replace both current world files together and restart to use it.
+[算法对比与运行方法](docs/planner_comparison.md) · [工程架构与边界](docs/architecture.md) · [探索与优化记录](docs/experiments.md) · [A* 后续计划](docs/roadmap.md) · [第三方声明](THIRD_PARTY_NOTICES.md)
 
-## Source map
-
-| Path | Responsibility |
-|---|---|
-| `src/panda_planning/panda_planning/path_planner.py` | RRT, RRT-Connect and shortcut |
-| `src/panda_planning/panda_planning/collision_checker.py` | FK/IK, self/environment and payload collision checks |
-| `src/panda_planning/panda_planning/trajectory_planner.py` | Quintic timing and trajectory checks |
-| `src/panda_planning/panda_planning/grasp_task.py` | Physical pick/place/return state machine |
-| `src/panda_planning/panda_planning/control_node.py` | Arm PD/gravity and finger effort control |
-| `src/panda_planning/panda_planning/startup.py` | Paused simulator/controller startup coordination |
-| `src/franka_description` | Panda description, meshes and actuated gripper |
-
-## Verify
-
-After building and sourcing `install/setup.bash`:
-
-```bash
-/usr/bin/python3 -m pytest src/panda_planning/test -m 'not linter' -q
-```
-
-These are offline functional checks, not a full Gazebo acceptance test. Generated lint scaffolds are retained and excluded by this command; no clean lint result is claimed. See [validation](docs/validation.md) for the physical experiments and their limits.
-
-## Known limitations
-
-Collision checking is discretized, not a continuous collision guarantee. Meshes use conservative convex hulls. Static obstacles are loaded from the world file; moving them in the GUI does not update the planner. The dynamic cube is synchronized separately. A failed carrying task retains its payload state and rejects a new task; cancel/recovery is not yet implemented. Restart the scene to reset such a task. Complex-scene return planning remains an open issue.
-
-## Attribution
-
-Developed as a learning and integration project with AI-assisted implementation and debugging. RRT/RRT-Connect are established algorithms, not proposed here as new algorithms. Franka mesh provenance, upstream license and modifications are recorded in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Original project code currently has no general reuse license; third-party licenses remain applicable.
+碰撞复检是离散采样，不是连续安全证明；参考轨迹无碰撞不等于带跟踪误差的物理运动绝对无碰撞。当前用于静态仿真学习，不用于实体机械臂直接部署。

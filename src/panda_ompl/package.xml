@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<package format="3">
+  <name>panda_ompl</name>
+  <version>0.0.0</version>
+
+  <description>
+    Panda C++ OMPL RRT, RRT-Connect and RRT*, collision checking, trajectory generation
+    and contact-verified physical pick and place.
+  </description>
+
+  <maintainer email="zhenyuzhang763@gmail.com">jasonz</maintainer>
+
+  <!-- 暂未选择项目代码的开源许可证。 -->
+  <license>UNLICENSED</license>
+
+  <!-- 构建工具。 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- ROS 2 C++ 节点库。 -->
+  <depend>rclcpp</depend>
+  <depend>controller_manager_msgs</depend>
+
+  <!-- 关节状态消息。 -->
+  <depend>sensor_msgs</depend>
+
+  <!-- robot_description 使用的字符串消息。 -->
+  <depend>std_msgs</depend>
+
+  <!-- URDF 机器人模型解析。 -->
+  <depend>urdf</depend>
+  <depend>rosgraph_msgs</depend>
+  <depend>eigen</depend>
+
+  <!-- SRDF 机器人语义模型。 -->
+  <depend>srdfdom</depend>
+
+  <!-- MoveIt 机器人模型和碰撞检测。 -->
+  <depend>moveit_core</depend>
+
+  <!-- OMPL 路径规划库。 -->
+  <depend>ompl</depend>
+
+  <!-- 环境碰撞对象及其几何形状。 -->
+  <depend>geometry_msgs</depend>
+  <depend>shape_msgs</depend>
+  <depend>moveit_msgs</depend>
+
+
+  <depend>trajectory_msgs</depend>
+
+  <depend>std_srvs</depend>
+
+  <depend>tf2_msgs</depend>
+
+  <depend>ament_index_cpp</depend>
+
+
+
+  <depend>ros_gz_interfaces</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
