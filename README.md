@@ -6,7 +6,7 @@ ROS 2 Humble / Gazebo Fortress 下的七自由度机械臂项目。通过 **OMPL
 
 ## Gazebo 实测进展
 
-将夹爪闭合增益由 200 调至 400 N/m，每指力上限保持 5 N 后，重新对三种算法各运行三个种子，共 **9 次全新 Gazebo 任务**。统一 30 秒搜索预算、场景、手臂 PD、shortcut、B 样条与 bounded 抓放时间。
+对 RRT、RRT-Connect、RRT* 各运行三个种子，共 **9 次 Gazebo 完整任务尝试**。统一 30 秒搜索预算、场景、手臂 PD、shortcut、B 样条与 bounded 抓放时间。
 
 | 算法 | 携物轨迹生成成功 | 完整任务成功 | 成功任务墙钟均值 / s |
 |---|---:|---:|---:|
@@ -14,7 +14,7 @@ ROS 2 Humble / Gazebo Fortress 下的七自由度机械臂项目。通过 **OMPL
 | RRT-Connect | 3/3 | 2/3 | 112.83 |
 | RRT* | 0/3 | 0/3 | — |
 
-失败全部保留，完整成功要求抓取、放置、松爪与归位全部完成。每算法仅三次且物理状态不完全可重复，不将结果变化直接解释为夹持调整的因果效果。[本批方法、逐任务及前后对照](docs/planner_comparison.md) · [原闭合增益的上一批](docs/planner_comparison_grip200.md)。
+失败全部保留，完整成功要求抓取、放置、松爪与归位全部完成。每种算法仅三个样本，结论限定于当前场景和配置。[实验方法、逐任务结果与原始数据](docs/planner_comparison.md)。
 
 抓放时间通过实际 Hermite 插值的 Bernstein 包络复检，不提高速度/加速度限值。[时间分配实现](docs/cartesian_timing.md)。后续扩大样本、定位失败并探索 A*。
 
