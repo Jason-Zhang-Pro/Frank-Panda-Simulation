@@ -1,0 +1,2 @@
+algorithm,seed,success,task_wall_s,task_sim_s,planned_segments,arrived_segments,planned_length_rad,actual_sampled_length_rad,reference_s,cube_x,cube_y,cube_z,terminal
+rrt_star,2,0,86.578274714,86.576,3,3,3.71687387048,3.72584545014,24.157939445,0.599965170553,0.224814184823,0.546682956822,"pick_place_failed: failed: 轨迹碰撞复检失败：碰撞: overhead_bridge <-> panda_link5；保持夹爪指令"

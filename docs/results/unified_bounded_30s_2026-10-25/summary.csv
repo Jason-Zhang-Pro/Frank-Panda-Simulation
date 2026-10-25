@@ -1,0 +1,4 @@
+algorithm,trials,task_successes,mean_task_wall_s,global_plans,global_plan_successes,transfer_attempts,transfer_plan_successes,approach_count,approach_mean_search_s,approach_mean_first_solution_s,approach_mean_raw_length_rad,approach_mean_shortcut_length_rad,approach_mean_reference_s,approach_mean_validity_queries
+rrt,3,1,61.700176899,7,5,3,1,3,0.392146,0.3923333333333333,5.203266666666667,2.2212,5.29,17200
+rrt_connect,3,2,91.386127328,8,8,3,3,3,0.0039959999999999996,0.0036666666666666666,2.3497,2.2212,5.29,142.66666666666666
+rrt_star,3,0,86.170162425,6,3,3,0,3,30.070628,8.848333333333333,5.306066666666666,2.2213333333333334,5.29,173357

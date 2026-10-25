@@ -1,0 +1,2 @@
+algorithm,seed,success,task_wall_s,task_sim_s,planned_segments,arrived_segments,planned_length_rad,actual_sampled_length_rad,reference_s,cube_x,cube_y,cube_z,terminal
+rrt_connect,2,0,69.583934487,69.582,5,5,8.86501157922,8.90553641075,65.402959519,0.31327436527,-0.554507786012,0.362578810925,"pick_place_failed: failed: 未找到满足末端误差和碰撞约束的 IK；保持夹爪指令"

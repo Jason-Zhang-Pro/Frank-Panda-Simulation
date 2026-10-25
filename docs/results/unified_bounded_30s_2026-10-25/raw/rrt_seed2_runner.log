@@ -1,0 +1,1 @@
+TRIAL_DONE success=0 wall_s=26.4378 pick_place_failed: failed: 轨迹碰撞复检失败：碰撞: overhead_bridge <-> panda_link5；保持夹爪指令

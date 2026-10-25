@@ -1,0 +1,53 @@
+[
+  {
+    "algorithm": "rrt",
+    "trials": 3,
+    "task_successes": 1,
+    "mean_task_wall_s": 61.700176899,
+    "global_plans": 7,
+    "global_plan_successes": 5,
+    "transfer_attempts": 3,
+    "transfer_plan_successes": 1,
+    "approach_count": 3,
+    "approach_mean_search_s": 0.392146,
+    "approach_mean_first_solution_s": 0.3923333333333333,
+    "approach_mean_raw_length_rad": 5.203266666666667,
+    "approach_mean_shortcut_length_rad": 2.2212,
+    "approach_mean_reference_s": 5.29,
+    "approach_mean_validity_queries": 17200
+  },
+  {
+    "algorithm": "rrt_connect",
+    "trials": 3,
+    "task_successes": 2,
+    "mean_task_wall_s": 91.386127328,
+    "global_plans": 8,
+    "global_plan_successes": 8,
+    "transfer_attempts": 3,
+    "transfer_plan_successes": 3,
+    "approach_count": 3,
+    "approach_mean_search_s": 0.0039959999999999996,
+    "approach_mean_first_solution_s": 0.0036666666666666666,
+    "approach_mean_raw_length_rad": 2.3497,
+    "approach_mean_shortcut_length_rad": 2.2212,
+    "approach_mean_reference_s": 5.29,
+    "approach_mean_validity_queries": 142.66666666666666
+  },
+  {
+    "algorithm": "rrt_star",
+    "trials": 3,
+    "task_successes": 0,
+    "mean_task_wall_s": 86.170162425,
+    "global_plans": 6,
+    "global_plan_successes": 3,
+    "transfer_attempts": 3,
+    "transfer_plan_successes": 0,
+    "approach_count": 3,
+    "approach_mean_search_s": 30.070628,
+    "approach_mean_first_solution_s": 8.848333333333333,
+    "approach_mean_raw_length_rad": 5.306066666666666,
+    "approach_mean_shortcut_length_rad": 2.2213333333333334,
+    "approach_mean_reference_s": 5.29,
+    "approach_mean_validity_queries": 173357
+  }
+]

@@ -68,8 +68,21 @@ class Startup : public rclcpp::Node {
     if(!wait(future)->success)throw std::runtime_error("Gazebo 世界控制失败");
   }
   bool inactive() {
-    auto future=list_->async_send_request(std::make_shared<List::Request>());
-    auto response=wait(future);std::map<std::string,std::string> states;
+    List::Response::SharedPtr response;
+    // Discovery may announce the service before its reply endpoint is matched.
+    // Retry this read-only query while the world remains paused; never retry
+    // activation or simulation stepping implicitly.
+    for(int attempt=0;attempt<3;++attempt) {
+      auto future=list_->async_send_request(std::make_shared<List::Request>());
+      if(rclcpp::spin_until_future_complete(shared_from_this(),future,5s)==rclcpp::FutureReturnCode::SUCCESS) {
+        response=future.get();break;
+      }
+      list_->remove_pending_request(future);
+      RCLCPP_WARN(get_logger(),"控制器列表查询响应超时，保持暂停并重试（%d/3）",attempt+1);
+      spin_for(200ms);
+    }
+    if(!response)throw std::runtime_error("控制器列表查询连续三次超时");
+    std::map<std::string,std::string> states;
     for(const auto &c:response->controller)states[c.name]=c.state;
     for(const auto &name:controllers_)if(states[name]!="inactive")return false;
     return true;

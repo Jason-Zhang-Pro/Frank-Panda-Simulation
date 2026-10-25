@@ -1,0 +1,2 @@
+algorithm,seed,success,task_wall_s,task_sim_s,planned_segments,arrived_segments,planned_length_rad,actual_sampled_length_rad,reference_s,cube_x,cube_y,cube_z,terminal
+rrt,1,1,102.771823838,102.766,7,7,12.1540770889,12.2051525196,84.275640361,0.303812279525,-0.551773854711,0.349999942832,"pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成"
