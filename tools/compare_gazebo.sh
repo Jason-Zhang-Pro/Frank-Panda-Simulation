@@ -5,7 +5,7 @@ PANDA_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 source /opt/ros/humble/setup.bash
 source "$PANDA_ROOT/install/setup.bash"
 PANDA_RUNS="${RUNS:-3}"
-PANDA_ALGORITHMS="${ALGORITHMS:-rrt rrt_connect rrt_star}"
+PANDA_ALGORITHMS="${ALGORITHMS:-rrt rrt_connect rrt_star astar}"
 PANDA_TIMING="${CARTESIAN_TIMING:-bounded}"
 PANDA_BUDGET="${TIMEOUT:-5.0}"
 PANDA_OUTPUT="${OUTPUT_DIR:-$PANDA_ROOT/results/gazebo_$(date +%Y%m%d_%H%M%S)}"
@@ -50,8 +50,8 @@ for ((seed=1;seed<=PANDA_RUNS;seed++)); do
       printf 'KEEP completed algorithm=%s seed=%s\n' "$algorithm" "$seed"
       continue
     fi
-    case "$algorithm" in rrt) offset=0;; rrt_connect) offset=1;; rrt_star) offset=2;; *) echo "不支持算法 $algorithm"; exit 1;; esac
-    export ROS_DOMAIN_ID=$((PANDA_DOMAIN_BASE + (seed-1)*3 + offset))
+    case "$algorithm" in rrt) offset=0;; rrt_connect) offset=1;; rrt_star) offset=2;; astar) offset=3;; *) echo "不支持算法 $algorithm"; exit 1;; esac
+    export ROS_DOMAIN_ID=$((PANDA_DOMAIN_BASE + (seed-1)*4 + offset))
     export IGN_PARTITION="${PANDA_PARTITION_BASE}_${algorithm}_${seed}"
     printf '%s,%s,%s,%s\n' "$algorithm" "$seed" "$ROS_DOMAIN_ID" "$IGN_PARTITION" >> "$PANDA_OUTPUT/trial_domains.csv"
     if [[ -f "${prefix}_launch.log" ]]; then

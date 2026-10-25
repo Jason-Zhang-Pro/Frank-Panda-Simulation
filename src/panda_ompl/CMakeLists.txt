@@ -26,7 +26,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(shape_msgs REQUIRED)
 find_package(moveit_msgs REQUIRED)
 
-add_library(panda_planning_engine src/planning_engine.cpp src/bspline_trajectory.cpp src/cartesian_servo.cpp)
+add_library(panda_planning_engine src/planning_engine.cpp src/astar_planner.cpp src/bspline_trajectory.cpp src/cartesian_servo.cpp)
 set_target_properties(panda_planning_engine PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(panda_planning_engine PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

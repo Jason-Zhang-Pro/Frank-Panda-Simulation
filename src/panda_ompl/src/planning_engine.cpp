@@ -228,8 +228,8 @@ void PlanningEngine::update_target(const Eigen::Isometry3d &pose) {
   if(!scene_->processCollisionObjectMsg(target)) throw std::runtime_error("同步方块失败");
 }
 void PlanningEngine::set_algorithm(const std::string &algorithm) {
-  if(algorithm!="rrt"&&algorithm!="rrt_connect"&&algorithm!="rrt_star")
-    throw std::runtime_error("planner_algorithm 必须为 rrt / rrt_connect / rrt_star");
+  if(algorithm!="rrt"&&algorithm!="rrt_connect"&&algorithm!="rrt_star"&&algorithm!="astar")
+    throw std::runtime_error("planner_algorithm 必须为 rrt / rrt_connect / rrt_star / astar");
   algorithm_=algorithm;
 }
 PlanResult PlanningEngine::plan(const Positions &positions,const Q &goal,double timeout,
@@ -241,6 +241,18 @@ PlanResult PlanningEngine::plan(const Positions &positions,const Q &goal,double 
   std::string reason;
   if(!valid(start,&reason)) throw std::runtime_error("起点无效："+reason);
   if(!valid(goal,&reason)) throw std::runtime_error("终点无效："+reason);
+  if(algorithm_=="astar") {
+    PlanResult result;result.planner=algorithm_;
+    auto points=astar_path(start,goal,timeout,result);
+    auto length=[](const std::vector<Q> &path) {
+      double total=0;for(std::size_t i=1;i<path.size();++i)total+=distance(path[i-1],path[i]);return total;
+    };
+    result.raw_points=points.size();result.raw_length=length(points);
+    if(shortcut)points=shortcut_path(points);
+    result.shortcut_length=length(points);
+    if(bspline_enabled_)return bspline_path(points,result,velocity_scale,acceleration);
+    return time_path(points,result,velocity_scale,acceleration);
+  }
   auto space=std::make_shared<ob::RealVectorStateSpace>(7);
   ob::RealVectorBounds bounds(7);
   for(std::size_t j=0;j<7;++j) {bounds.setLow(j,lower_[j]); bounds.setHigh(j,upper_[j]);}

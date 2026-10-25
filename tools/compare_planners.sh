@@ -15,7 +15,7 @@ xacro "$PANDA_ROOT/src/franka_description/robots/panda/panda_sim.urdf.xacro" > "
 # Preserve the exact inputs with the CSV. Edit these before running a new query.
 cp "$PANDA_ROOT/src/panda_ompl/config/benchmark.yaml" "$PANDA_OUTPUT/query.yaml"
 cp "$PANDA_ROOT/src/panda_planning/worlds/world.urdf" "$PANDA_OUTPUT/world.urdf"
-for algorithm in rrt rrt_connect rrt_star; do
+for algorithm in ${ALGORITHMS:-rrt rrt_connect rrt_star astar}; do
   for mode in raw shortcut bspline; do
     shortcut=false; bspline=false
     [[ "$mode" == raw ]] || shortcut=true

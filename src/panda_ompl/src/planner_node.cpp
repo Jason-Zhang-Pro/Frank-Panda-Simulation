@@ -48,7 +48,7 @@ public:
         try {
           if(get_parameter("world_urdf").as_string().empty())throw std::runtime_error("请通过 start_cpp.sh 启动，或指定 world_urdf 参数");
           engine_=std::make_shared<panda_ompl::PlanningEngine>(m->data,get_parameter("world_urdf").as_string());
-          status("idle: C++ OMPL 规划器就绪，已加载 "+std::to_string(engine_->object_count())+" 个世界碰撞体；等待实际状态及目标");
+          status("idle: C++ 规划器就绪，已加载 "+std::to_string(engine_->object_count())+" 个世界碰撞体；等待实际状态及目标");
         } catch(const std::exception &e){engine_.reset();status(std::string("model_failed: ")+e.what());}
       });
     state_sub_=create_subscription<sensor_msgs::msg::JointState>("/joint_states",rclcpp::SensorDataQoS(),
@@ -159,7 +159,7 @@ private:
         if(xyz)return engine->plan_pose(positions,*xyz,cartesian,timeout,shortcut,scale,acceleration);
         return engine->plan(positions,goal,timeout,shortcut,scale,acceleration);
       });
-      status("planning: C++ OMPL "+algorithm+"；七关节、静态环境及自碰撞检查");
+      status("planning: C++ "+algorithm+"；七关节、静态环境及自碰撞检查");
       response.success=true;response.message="任务已接受；查看 /planner_status，不代表执行完成";
     }catch(const std::exception&e){response.success=false;response.message=e.what();}
   }
@@ -194,7 +194,7 @@ private:
         cached_=future_.get();
         if(job_aborted_){cached_.reset();job_aborted_=false;return;}
         const auto count=cached_->trajectory.points.size();
-        RCLCPP_INFO(get_logger(),"OMPL: %.3fs，原始路径 %zu 点，输出轨迹 %zu 点，复检 %zu 样本，轨迹 %.2fs，模式 %s",
+        RCLCPP_INFO(get_logger(),"搜索: %.3fs，原始路径 %zu 点，输出轨迹 %zu 点，复检 %zu 样本，轨迹 %.2fs，模式 %s",
           cached_->search_seconds,cached_->raw_points,count,cached_->checked_samples,cached_->duration,cached_->trajectory_type.c_str());
         RCLCPP_INFO(get_logger(),"planner=%s | first_solution=%.3fs | raw_length=%.4f | shortcut_length=%.4f | validity_queries=%zu",
           cached_->planner.c_str(),cached_->first_solution_seconds,cached_->raw_length,cached_->shortcut_length,cached_->validity_queries);
@@ -345,7 +345,7 @@ private:
         } else if(elapsed>5)throw std::runtime_error("未确认双指夹住方块");
       } else if(stage_=="lifting"&&arm_done_) {
         if(target_->translation().z()<pick_.z()+.055||!both_contacts())throw std::runtime_error("实际方块未抬起或失去接触");
-        status("pick_lifted: 真实抬升通过，C++ OMPL 携物转运");
+        status("pick_lifted: 真实抬升通过，C++ 携物转运");
         move_stage("transferring",place_+Eigen::Vector3d(0,0,.13));
       } else if(stage_=="transferring"&&arm_done_) {
         if(!both_contacts())throw std::runtime_error("转运后失去双指接触");
@@ -363,7 +363,7 @@ private:
       } else if(stage_=="retreating"&&arm_done_) {
         if((target_->translation()-place_).norm()>.025)throw std::runtime_error("放置后方块未稳定");
         stage_="homing";arm_done_=false;Trigger::Response r;
-        status("returning_home: C++ OMPL 规划归位");
+        status("returning_home: C++ 规划归位");
         request(true,r,true,{},false,get_parameter("home_joint_positions").as_double_array());
         if(!r.success)throw std::runtime_error(r.message);
       } else if(stage_=="homing"&&arm_done_) {

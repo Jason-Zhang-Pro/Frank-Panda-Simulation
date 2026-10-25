@@ -57,6 +57,7 @@ public:
                   bool shortcut = true, double velocity_scale = .2,
                   double acceleration = .6);
 private:
+  std::vector<Q> astar_path(const Q &start, const Q &goal, double timeout, PlanResult &result);
   std::string algorithm_ = "rrt_connect";
   bool bspline_enabled_ = false;
   bool tight_cartesian_timing_ = true;

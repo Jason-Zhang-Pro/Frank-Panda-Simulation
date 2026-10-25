@@ -75,6 +75,7 @@ source install/setup.bash
 ```bash
 ./start.sh planner_algorithm:=rrt
 ./start.sh planner_algorithm:=rrt_star
+./start.sh planner_algorithm:=astar planning_timeout:=30.0
 # 后台或启动完成后保持暂停：
 ./start.sh gui:=false auto_play:=false
 ```
@@ -100,7 +101,7 @@ ros2 topic echo /planner_status --qos-durability transient_local
 
 | 参数 | 默认值 | 用途 |
 |---|---:|---|
-| `planner_algorithm` | `rrt_connect` | `rrt` / `rrt_connect` / `rrt_star` |
+| `planner_algorithm` | `rrt_connect` | `rrt` / `rrt_connect` / `rrt_star` / `astar` |
 | `planning_timeout` | 15 s | 搜索预算；不含 IK 与后处理全部时间 |
 | `shortcut_enabled` | true | 碰撞检测通过才直连远端路点 |
 | `cartesian_timing` | `bounded` | 抓放时间优化；`conservative` 恢复旧时间分配 |
@@ -122,6 +123,7 @@ src/
     ├── src/
     │   ├── planner_node.cpp       ROS 接口、任务状态机、规划调度
     │   ├── planning_engine.cpp    OMPL 选择、FK/IK、FCL、shortcut、旧时间分配
+    │   ├── astar_planner.cpp      七维关节网格 A* 搜索
     │   ├── bspline_trajectory.cpp B 样条、时间缩放、实际插值复检
     │   ├── control_node.cpp       关节 PD、重力补偿、夹爪与反馈超时
     │   ├── startup_node.cpp       暂停单步激活与启动协调
@@ -138,3 +140,7 @@ src/
 [算法对比与运行方法](docs/planner_comparison.md) · [工程架构与边界](docs/architecture.md) · [探索与优化记录](docs/experiments.md) · [A* 后续计划](docs/roadmap.md) · [第三方声明](THIRD_PARTY_NOTICES.md)
 
 碰撞复检是离散采样，不是连续安全证明；参考轨迹无碰撞不等于带跟踪误差的物理运动绝对无碰撞。当前用于静态仿真学习，不用于实体机械臂直接部署。
+
+## A* 算法组
+
+新增 `astar`，与 OMPL 三种采样算法使用相同 MoveIt/FCL、shortcut、B 样条和抓放状态机。A* 为项目实现的七维关节网格搜索，详见 [A* 方法与运行](docs/astar.md)。现有九次 Gazebo 实验仅包含三种 RRT 系列算法，A* 尚未采集完整任务数据。
