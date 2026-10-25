@@ -27,6 +27,7 @@ public:
   PlanningEngine(const std::string &xml, const std::string &world, double clearance = .008);
   void set_algorithm(const std::string &algorithm);
   void enable_bspline(bool enabled) { bspline_enabled_ = enabled; }
+  void enable_tight_cartesian_timing(bool enabled) { tight_cartesian_timing_ = enabled; }
   const std::vector<std::string> &variables() const { return model_->getVariableNames(); }
   const std::vector<std::string> &names() const { return names_; }
   std::size_t object_count() const { return objects_; }
@@ -58,6 +59,7 @@ public:
 private:
   std::string algorithm_ = "rrt_connect";
   bool bspline_enabled_ = false;
+  bool tight_cartesian_timing_ = true;
   moveit::core::RobotModelPtr model_;
   planning_scene::PlanningScenePtr scene_;
   moveit::core::RobotStatePtr state_;

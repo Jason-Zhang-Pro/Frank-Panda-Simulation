@@ -6,7 +6,7 @@ ROS 2 Humble / Gazebo Fortress 下的七自由度机械臂项目。通过 **OMPL
 
 ## Gazebo 实测进展
 
-在同一场景和实现配置下，分别以 **5 秒、30 秒的单次全局搜索预算**对三种算法运行种子 1/2/3，累计 **18 次有效完整任务尝试**。每次重启独立无 GUI 世界，用实际关节、接触和方块位姿判定结果。
+在同一场景和实现配置下，分别以 **5 秒、30 秒的单次全局搜索预算**对三种算法运行种子 1/2/3，累计 **18 次有效完整任务尝试**。每次重启独立无 GUI 世界，用实际关节、接触和方块位姿判定结果。此表使用原保守抓放时间模式，后续时间优化另行验证，不混合统计。
 
 | 算法 | 5 s 携物轨迹成功 | 30 s 携物轨迹成功 | 5 s 完整任务成功 | 30 s 完整任务成功 |
 |---|---:|---:|---:|---:|
@@ -19,6 +19,10 @@ ROS 2 Humble / Gazebo Fortress 下的七自由度机械臂项目。通过 **OMPL
 机器人、场景、PD 和实现文件哈希与 5 秒组一致；物理初始化与反馈并非确定性回放，小样本比例不代表算法通用成功率。当前使用 IK 直线路点＋约束 B 样条跟踪，保留碰撞和姿态复检；在线雅可比抓放实验未作为默认方案。
 
 [方法、逐种子结果、路径长度和原始日志](docs/planner_comparison.md)。后续继续排查接触与到位稳定性，并探索 A*。
+
+## 抓放时间分配优化
+
+新增按实际时间相位估计、再以 Hermite/Bernstein 包络复检的抓放时间分配，最多提速 2 倍，不提高速度/加速度限值，不改 PD 或到位阈值。三种子 RRT-Connect 验证完整成功 3/3（旧组 1/3）；小样本不代表稳定性保证。[时长、任务结果与恢复方式](docs/cartesian_timing.md)。
 
 ## 技术栈与库调用
 
@@ -105,6 +109,7 @@ ros2 topic echo /planner_status --qos-durability transient_local
 | `planner_algorithm` | `rrt_connect` | `rrt` / `rrt_connect` / `rrt_star` |
 | `planning_timeout` | 15 s | 搜索预算；不含 IK 与后处理全部时间 |
 | `shortcut_enabled` | true | 碰撞检测通过才直连远端路点 |
+| `cartesian_timing` | `bounded` | 抓放时间优化；`conservative` 恢复旧时间分配 |
 | `trajectory_smoothing` | `bspline` | `stop` 可恢复原分段停车 |
 | `velocity_scale` | 0.3 | URDF 关节速度上限比例 |
 | `acceleration_limit` | 0.9 rad/s² | 参考加速度上限 |

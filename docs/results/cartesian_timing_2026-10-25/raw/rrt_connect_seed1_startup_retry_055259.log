@@ -1,0 +1,176 @@
+[INFO] [launch]: All log files can be found below /home/jasonz/panda_control_ws/results/cartesian_timing_20261025/bounded/ros_logs/2026-10-25-16-52-08-027457-jasonz-Legion-Y7000P-IRX9-79340
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ign-1]: process started with pid [79366]
+[INFO] [robot_state_publisher-2]: process started with pid [79368]
+[INFO] [control_node-3]: process started with pid [79370]
+[INFO] [planner_node-4]: process started with pid [79372]
+[INFO] [parameter_bridge-5]: process started with pid [79374]
+[INFO] [create-6]: process started with pid [79376]
+[INFO] [spawner-7]: process started with pid [79378]
+[INFO] [spawner-8]: process started with pid [79380]
+[INFO] [spawner-9]: process started with pid [79382]
+[INFO] [startup_node-10]: process started with pid [79384]
+[control_node-3] [INFO] [1792907528.217089443] [panda_pd_gravity_control]: C++ PD＋重力补偿：等待模型和关节状态；只能运行一个力矩发布节点
+[create-6] [INFO] [1792907528.225204275] [ros_gz_sim]: Waiting messages on topic [/robot_description].
+[parameter_bridge-5] [INFO] [1792907528.238757369] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1792907528.239232882] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/target_contacts (ignition.msgs.Contacts) -> /target_contacts (ros_gz_interfaces/msg/Contacts)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1792907528.240204510] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/world/empty/dynamic_pose/info (ignition.msgs.Pose_V) -> /world/empty/dynamic_pose/info (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[robot_state_publisher-2] [INFO] [1792907528.244294216] [robot_state_publisher]: got segment panda_hand
+[robot_state_publisher-2] [INFO] [1792907528.244352134] [robot_state_publisher]: got segment panda_hand_sc
+[robot_state_publisher-2] [INFO] [1792907528.244355864] [robot_state_publisher]: got segment panda_hand_tcp
+[robot_state_publisher-2] [INFO] [1792907528.244358464] [robot_state_publisher]: got segment panda_leftfinger
+[robot_state_publisher-2] [INFO] [1792907528.244360769] [robot_state_publisher]: got segment panda_link0
+[robot_state_publisher-2] [INFO] [1792907528.244362885] [robot_state_publisher]: got segment panda_link0_sc
+[robot_state_publisher-2] [INFO] [1792907528.244365139] [robot_state_publisher]: got segment panda_link1
+[robot_state_publisher-2] [INFO] [1792907528.244367346] [robot_state_publisher]: got segment panda_link1_sc
+[robot_state_publisher-2] [INFO] [1792907528.244369413] [robot_state_publisher]: got segment panda_link2
+[robot_state_publisher-2] [INFO] [1792907528.244371403] [robot_state_publisher]: got segment panda_link2_sc
+[robot_state_publisher-2] [INFO] [1792907528.244373494] [robot_state_publisher]: got segment panda_link3
+[robot_state_publisher-2] [INFO] [1792907528.244375631] [robot_state_publisher]: got segment panda_link3_sc
+[robot_state_publisher-2] [INFO] [1792907528.244377683] [robot_state_publisher]: got segment panda_link4
+[robot_state_publisher-2] [INFO] [1792907528.244379762] [robot_state_publisher]: got segment panda_link4_sc
+[robot_state_publisher-2] [INFO] [1792907528.244381875] [robot_state_publisher]: got segment panda_link5
+[robot_state_publisher-2] [INFO] [1792907528.244383976] [robot_state_publisher]: got segment panda_link5_sc
+[robot_state_publisher-2] [INFO] [1792907528.244386038] [robot_state_publisher]: got segment panda_link6
+[robot_state_publisher-2] [INFO] [1792907528.244388101] [robot_state_publisher]: got segment panda_link6_sc
+[robot_state_publisher-2] [INFO] [1792907528.244390216] [robot_state_publisher]: got segment panda_link7
+[robot_state_publisher-2] [INFO] [1792907528.244392242] [robot_state_publisher]: got segment panda_link7_sc
+[robot_state_publisher-2] [INFO] [1792907528.244394404] [robot_state_publisher]: got segment panda_link8
+[robot_state_publisher-2] [INFO] [1792907528.244396500] [robot_state_publisher]: got segment panda_rightfinger
+[robot_state_publisher-2] [INFO] [1792907528.244398576] [robot_state_publisher]: got segment world
+[planner_node-4] [INFO] [1792907528.244548332] [panda_ompl_planner]: idle: 等待机器人模型；/ompl_plan 仅规划，/ompl_move 规划并执行
+[planner_node-4] [INFO] [1792907528.245643176] [moveit_robot_model.robot_model]: Loading robot model 'panda'...
+[planner_node-4] [INFO] [1792907528.245658962] [moveit_robot_model.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[planner_node-4] [INFO] [1792907528.259760676] [panda_ompl_planner]: idle: C++ OMPL 规划器就绪，已加载 27 个世界碰撞体；等待实际状态及目标
+[control_node-3] [INFO] [1792907528.263140487] [panda_pd_gravity_control]: 机器人重力模型已加载，包含活动夹爪质量
+[spawner-7] [INFO] [1792907528.439101474] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[spawner-9] [INFO] [1792907528.486820560] [spawner_panda_gripper_controller]: waiting for service /controller_manager/list_controllers to become available...
+[spawner-8] [INFO] [1792907528.498890650] [spawner_panda_effort_controller]: waiting for service /controller_manager/list_controllers to become available...
+[create-6] [INFO] [1792907528.816355542] [ros_gz_sim]: Requested creation of entity.
+[create-6] [INFO] [1792907528.816399160] [ros_gz_sim]: OK creation of entity.
+[INFO] [create-6]: process has finished cleanly [pid 79376]
+[ign-1] [INFO] [1792907530.367822128] [GazeboSimROS2ControlPlugin]: robot_param_node is robot_state_publisher
+[ign-1] [INFO] [1792907530.367844697] [GazeboSimROS2ControlPlugin]: robot_param_node is robot_description
+[ign-1] [INFO] [1792907530.715424712] [gz_ros2_control]: connected to service!! robot_state_publisher asking for robot_description
+[ign-1] [INFO] [1792907530.715958476] [gz_ros2_control]: Received URDF from param server
+[ign-1] [INFO] [1792907530.716794480] [gz_ros2_control]: [gz_ros2_control] Fixed joint [panda_joint_world] (Entity=154)] is skipped
+[ign-1] [INFO] [1792907530.719510409] [gz_ros2_control]: The position_proportional_gain has been set to: 0.1
+[ign-1] [INFO] [1792907530.719537483] [gz_ros2_control]: Loading joint: panda_joint1
+[ign-1] [INFO] [1792907530.719543067] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907530.719547094] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907530.719552884] [gz_ros2_control]: 			 found initial value: 0.000000
+[ign-1] [INFO] [1792907530.719557450] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907530.719560875] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907530.719564346] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907530.719573842] [gz_ros2_control]: Loading joint: panda_joint2
+[ign-1] [INFO] [1792907530.719577760] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907530.719581248] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907530.719584782] [gz_ros2_control]: 			 found initial value: -0.785398
+[ign-1] [INFO] [1792907530.719587612] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907530.719589913] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907530.719591983] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907530.719596553] [gz_ros2_control]: Loading joint: panda_joint3
+[ign-1] [INFO] [1792907530.719598654] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907530.719600645] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907530.719602685] [gz_ros2_control]: 			 found initial value: 0.000000
+[ign-1] [INFO] [1792907530.719605037] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907530.719607082] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907530.719609081] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907530.719613220] [gz_ros2_control]: Loading joint: panda_joint4
+[ign-1] [INFO] [1792907530.719615372] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907530.719617317] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907530.719619612] [gz_ros2_control]: 			 found initial value: -2.356194
+[ign-1] [INFO] [1792907530.719622245] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907530.719624229] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907530.719626163] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907530.719630476] [gz_ros2_control]: Loading joint: panda_joint5
+[ign-1] [INFO] [1792907530.719632643] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907530.719634595] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907530.719636926] [gz_ros2_control]: 			 found initial value: 0.000000
+[ign-1] [INFO] [1792907530.719639412] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907530.719641411] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907530.719643379] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907530.719647360] [gz_ros2_control]: Loading joint: panda_joint6
+[ign-1] [INFO] [1792907530.719649423] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907530.719651347] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907530.719653318] [gz_ros2_control]: 			 found initial value: 1.570796
+[ign-1] [INFO] [1792907530.719655580] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907530.719657500] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907530.719659402] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907530.719663572] [gz_ros2_control]: Loading joint: panda_joint7
+[ign-1] [INFO] [1792907530.719665657] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907530.719667622] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907530.719669590] [gz_ros2_control]: 			 found initial value: 0.785398
+[ign-1] [INFO] [1792907530.719672008] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907530.719673966] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907530.719675963] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907530.719680188] [gz_ros2_control]: Loading joint: panda_finger_joint1
+[ign-1] [INFO] [1792907530.719682570] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907530.719684594] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907530.719686708] [gz_ros2_control]: 			 found initial value: 0.040000
+[ign-1] [INFO] [1792907530.719689205] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907530.719691290] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907530.719693260] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907530.719699876] [gz_ros2_control]: Loading joint: panda_finger_joint2
+[ign-1] [INFO] [1792907530.719718886] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907530.719721402] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907530.719726562] [gz_ros2_control]: 			 found initial value: 0.040000
+[ign-1] [INFO] [1792907530.719729166] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907530.719731187] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907530.719733181] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907530.719793880] [resource_manager]: Initialize hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907530.719822809] [resource_manager]: Successful initialization of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907530.719847646] [resource_manager]: 'configure' hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907530.719849849] [gz_ros2_control]: System Successfully configured!
+[ign-1] [INFO] [1792907530.719854243] [resource_manager]: Successful 'configure' of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907530.719859078] [resource_manager]: 'activate' hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907530.719861601] [resource_manager]: Successful 'activate' of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907530.719864348] [gz_ros2_control]: Loading controller_manager
+[ign-1] [INFO] [1792907530.740575387] [controller_manager]: Loading controller 'panda_gripper_controller'
+[spawner-9] [INFO] [1792907530.747342630] [spawner_panda_gripper_controller]: [94mLoaded [1mpanda_gripper_controller[0m
+[ign-1] [INFO] [1792907530.747901841] [controller_manager]: Configuring controller 'panda_gripper_controller'
+[ign-1] [INFO] [1792907530.748773362] [panda_gripper_controller]: configure successful
+[ign-1] [INFO] [1792907530.752440586] [controller_manager]: Loading controller 'panda_effort_controller'
+[spawner-8] [INFO] [1792907530.757409487] [spawner_panda_effort_controller]: [94mLoaded [1mpanda_effort_controller[0m
+[ign-1] [INFO] [1792907530.757867192] [controller_manager]: Configuring controller 'panda_effort_controller'
+[ign-1] [INFO] [1792907530.758108877] [panda_effort_controller]: configure successful
+[ign-1] [WARN] [1792907530.835294316] [gz_ros2_control]:  Desired controller update period (0.002 s) is slower than the gazebo simulation period (0 s).
+[INFO] [spawner-9]: process has finished cleanly [pid 79382]
+[INFO] [spawner-8]: process has finished cleanly [pid 79380]
+[ign-1] [WARN] [1792907530.926211898] [controller_manager.rclcpp]: failed to send response to /controller_manager/list_controllers (timeout): client will not receive response, at ./src/rmw_response.cpp:154, at ./src/rcl/service.c:314
+[ign-1] [INFO] [1792907530.944235919] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[spawner-7] [INFO] [1792907530.950384998] [spawner_joint_state_broadcaster]: [94mLoaded [1mjoint_state_broadcaster[0m
+[ign-1] [INFO] [1792907530.951010194] [controller_manager]: Configuring controller 'joint_state_broadcaster'
+[ign-1] [INFO] [1792907530.951045390] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[INFO] [spawner-7]: process has finished cleanly [pid 79378]
+[startup_node-10] [ERROR] [1792907535.826146242] [panda_startup]: 启动服务响应超时
+[ERROR] [startup_node-10]: process has died [pid 79384, exit code 1, cmd '/home/jasonz/panda_control_ws/install/panda_ompl/lib/panda_ompl/startup_node --ros-args --params-file /tmp/launch_params_ka4z902w'].
+[INFO] [launch]: process[startup_node-10] was required: shutting down launched system
+[INFO] [parameter_bridge-5]: sending signal 'SIGINT' to process[parameter_bridge-5]
+[INFO] [planner_node-4]: sending signal 'SIGINT' to process[planner_node-4]
+[INFO] [control_node-3]: sending signal 'SIGINT' to process[control_node-3]
+[INFO] [robot_state_publisher-2]: sending signal 'SIGINT' to process[robot_state_publisher-2]
+[INFO] [ign-1]: sending signal 'SIGINT' to process[ign-1]
+[parameter_bridge-5] [INFO] [1792907535.931806353] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_node-4] [INFO] [1792907535.932365190] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[control_node-3] [INFO] [1792907535.932763755] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[robot_state_publisher-2] [INFO] [1792907535.933180866] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ign-1] [INFO] [1792907535.933663311] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ign-1] [INFO] [1792907535.933722429] [controller_manager]: Shutdown request received....
+[ign-1] [INFO] [1792907535.933763310] [controller_manager]: Shutting down all controllers in the controller manager.
+[ign-1] [INFO] [1792907535.933792214] [controller_manager]: Shutting down controller 'panda_gripper_controller'
+[ign-1] [INFO] [1792907535.933852584] [controller_manager]: Shutting down controller 'panda_effort_controller'
+[ign-1] [INFO] [1792907535.933893607] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[ign-1] [INFO] [1792907535.933934061] [resource_manager]: 'deactivate' hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907535.933948446] [resource_manager]: Successful 'deactivate' of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907535.933954988] [resource_manager]: 'shutdown' hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907535.933964010] [resource_manager]: Successful 'shutdown' of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907535.933969183] [controller_manager]: Shutting down the controller manager.
+[INFO] [parameter_bridge-5]: process has finished cleanly [pid 79374]
+[INFO] [control_node-3]: process has finished cleanly [pid 79370]
+[INFO] [launch]: process[control_node-3] was required: shutting down launched system
+[INFO] [robot_state_publisher-2]: process has finished cleanly [pid 79368]
+[INFO] [planner_node-4]: process has finished cleanly [pid 79372]
+[INFO] [launch]: process[planner_node-4] was required: shutting down launched system
+[INFO] [ign-1]: process has finished cleanly [pid 79366]
+[INFO] [launch]: process[ign-1] was required: shutting down launched system

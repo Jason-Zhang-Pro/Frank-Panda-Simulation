@@ -67,7 +67,7 @@ cd ~/panda_control_ws
 colcon build --base-paths src --symlink-install \
   --cmake-args -Dompl_DIR=/opt/ros/humble/share/ompl/cmake
 source install/setup.bash
-RUNS=3 TIMEOUT=5.0 ./tools/compare_gazebo.sh
+CARTESIAN_TIMING=conservative RUNS=3 TIMEOUT=5.0 ./tools/compare_gazebo.sh
 ```
 
 工具每次启动隔离世界并调用 `/pick_and_place`，不是只在后台计算路径。`gazebo_trial_node` 订阅实际反馈、物体位姿、任务状态和规划轨迹。原始记录包括任务墙钟/仿真时间、参考长度、实际采样关节运动长度、轨迹时长、阶段状态和最终物体坐标。实际长度受采样噪声影响；失败任务记录的长度是部分任务前缀。

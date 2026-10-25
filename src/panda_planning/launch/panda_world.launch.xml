@@ -4,6 +4,7 @@
   <arg name="gui" default="true"/>
   <arg name="auto_play" default="true"/>
   <arg name="planner_algorithm" default="rrt_connect"/>
+  <arg name="cartesian_timing" default="bounded"/>
   <arg name="trajectory_smoothing" default="bspline"/>
   <arg name="velocity_scale" default="0.3"/>
   <arg name="acceleration_limit" default="0.9"/>
@@ -26,6 +27,7 @@
     <param name="planner_algorithm" value="$(var planner_algorithm)"/>
     <param name="seed" value="$(var seed)"/>
     <param name="planning_timeout" value="$(var planning_timeout)"/>
+    <param name="cartesian_timing" value="$(var cartesian_timing)"/>
     <param name="trajectory_smoothing" value="$(var trajectory_smoothing)"/>
     <param name="velocity_scale" value="$(var velocity_scale)"/>
     <param name="acceleration_limit" value="$(var acceleration_limit)"/>

@@ -1,5 +1,7 @@
 # Gazebo 规划预算对比：5 秒与 30 秒
 
+> 本页两组算法基准均使用原保守时间分配。后续的抓放时间优化单独记录于 [时间分配优化](cartesian_timing.md)，不混入本页成功率。当前代码默认 bounded，复现本页需显式设置 CARTESIAN_TIMING=conservative。
+
 ## 设置与判定
 
 对 RRT、RRT-Connect、RRT* 各运行种子 1、2、3，每个预算组 9 次有效 Gazebo 任务，共 18 次。每次重建独立无 GUI 世界，任务是抓取、抬升、携物搬运、放置、松开及归位，不是离线单查询。
@@ -81,7 +83,7 @@ RRT 在 30 秒组的种子 1 找到了携物路径，搜索约 6.99 秒，并完
 source /opt/ros/humble/setup.bash
 cd ~/panda_control_ws
 source install/setup.bash
-RUNS=3 TIMEOUT=30.0 BENCHMARK_ROS_DOMAIN_ID=110 \
+CARTESIAN_TIMING=conservative RUNS=3 TIMEOUT=30.0 BENCHMARK_ROS_DOMAIN_ID=110 \
   BENCHMARK_IGN_PARTITION=panda_benchmark_30s ./tools/compare_gazebo.sh
 ```
 

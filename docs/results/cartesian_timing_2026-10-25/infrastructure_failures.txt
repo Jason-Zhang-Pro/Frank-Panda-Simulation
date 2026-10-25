@@ -1,0 +1,2 @@
+STARTUP_FAILED algorithm=rrt_connect seed=1 log=/home/jasonz/panda_control_ws/results/cartesian_timing_20261025/bounded/rrt_connect_seed1_launch.log
+STARTUP_FAILED algorithm=rrt_connect seed=3 log=/home/jasonz/panda_control_ws/results/cartesian_timing_20261025/bounded/rrt_connect_seed3_launch.log

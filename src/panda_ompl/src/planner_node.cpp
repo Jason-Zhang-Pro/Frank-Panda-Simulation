@@ -24,6 +24,7 @@ public:
     declare_parameter("world_urdf",std::string(""));
     declare_parameter("goal_joint_positions",std::vector<double>{.3,-.785398,0.,-2.356194,0.,1.570796,.785398});
     declare_parameter("planner_algorithm",std::string("rrt_connect"));
+    declare_parameter("cartesian_timing",std::string("bounded"));
     declare_parameter("trajectory_smoothing",std::string("bspline"));
     declare_parameter("planning_timeout",15.);declare_parameter("shortcut_enabled",true);
     declare_parameter("velocity_scale",.3);declare_parameter("acceleration_limit",.9);
@@ -140,6 +141,9 @@ private:
       const bool shortcut=get_parameter("shortcut_enabled").as_bool();
       const auto smoothing=get_parameter("trajectory_smoothing").as_string();
       if(smoothing!="bspline"&&smoothing!="stop")throw std::runtime_error("trajectory_smoothing 必须为 bspline 或 stop");
+      const auto timing=get_parameter("cartesian_timing").as_string();
+      if(timing!="bounded"&&timing!="conservative")throw std::runtime_error("cartesian_timing 必须为 bounded 或 conservative");
+      const bool tight_timing=timing=="bounded";
       const bool bspline=smoothing=="bspline";
       const auto algorithm=get_parameter("planner_algorithm").as_string();
       job_aborted_=false;cached_.reset();snapshot_=positions_;planned_target_=*target_;auto_execute_=execute_after;
@@ -147,9 +151,10 @@ private:
       const auto payload=payload_;
       const bool finger_contact=internal && stage_!="homing";
       const std::string support=stage_=="lifting"?"target_pedestal":(stage_=="lowering"?"place_pedestal":"");
-      future_=std::async(std::launch::async,[engine,positions,cube,goal,timeout,scale,acceleration,shortcut,xyz,cartesian,payload,finger_contact,support,bspline,algorithm]{
+      future_=std::async(std::launch::async,[engine,positions,cube,goal,timeout,scale,acceleration,shortcut,xyz,cartesian,payload,finger_contact,support,bspline,algorithm,tight_timing]{
         engine->set_algorithm(algorithm);
         engine->enable_bspline(bspline);
+        engine->enable_tight_cartesian_timing(tight_timing);
         engine->configure_task(positions,cube,payload,finger_contact,support);
         if(xyz)return engine->plan_pose(positions,*xyz,cartesian,timeout,shortcut,scale,acceleration);
         return engine->plan(positions,goal,timeout,shortcut,scale,acceleration);

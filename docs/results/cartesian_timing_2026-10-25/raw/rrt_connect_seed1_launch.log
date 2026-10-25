@@ -1,0 +1,372 @@
+[INFO] [launch]: All log files can be found below /home/jasonz/panda_control_ws/results/cartesian_timing_20261025/bounded/ros_logs/2026-10-25-16-52-59-625865-jasonz-Legion-Y7000P-IRX9-79745
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ign-1]: process started with pid [79771]
+[INFO] [robot_state_publisher-2]: process started with pid [79773]
+[INFO] [control_node-3]: process started with pid [79775]
+[INFO] [planner_node-4]: process started with pid [79777]
+[INFO] [parameter_bridge-5]: process started with pid [79779]
+[INFO] [create-6]: process started with pid [79781]
+[INFO] [spawner-7]: process started with pid [79783]
+[INFO] [spawner-8]: process started with pid [79785]
+[INFO] [spawner-9]: process started with pid [79787]
+[INFO] [startup_node-10]: process started with pid [79789]
+[control_node-3] [INFO] [1792907579.823912954] [panda_pd_gravity_control]: C++ PD＋重力补偿：等待模型和关节状态；只能运行一个力矩发布节点
+[robot_state_publisher-2] [INFO] [1792907579.832829261] [robot_state_publisher]: got segment panda_hand
+[robot_state_publisher-2] [INFO] [1792907579.832906937] [robot_state_publisher]: got segment panda_hand_sc
+[robot_state_publisher-2] [INFO] [1792907579.832913178] [robot_state_publisher]: got segment panda_hand_tcp
+[robot_state_publisher-2] [INFO] [1792907579.832917494] [robot_state_publisher]: got segment panda_leftfinger
+[robot_state_publisher-2] [INFO] [1792907579.832921442] [robot_state_publisher]: got segment panda_link0
+[robot_state_publisher-2] [INFO] [1792907579.832925261] [robot_state_publisher]: got segment panda_link0_sc
+[robot_state_publisher-2] [INFO] [1792907579.832928993] [robot_state_publisher]: got segment panda_link1
+[robot_state_publisher-2] [INFO] [1792907579.832932715] [robot_state_publisher]: got segment panda_link1_sc
+[robot_state_publisher-2] [INFO] [1792907579.832936278] [robot_state_publisher]: got segment panda_link2
+[robot_state_publisher-2] [INFO] [1792907579.832939470] [robot_state_publisher]: got segment panda_link2_sc
+[robot_state_publisher-2] [INFO] [1792907579.832942757] [robot_state_publisher]: got segment panda_link3
+[robot_state_publisher-2] [INFO] [1792907579.832946036] [robot_state_publisher]: got segment panda_link3_sc
+[robot_state_publisher-2] [INFO] [1792907579.832949803] [robot_state_publisher]: got segment panda_link4
+[robot_state_publisher-2] [INFO] [1792907579.832953237] [robot_state_publisher]: got segment panda_link4_sc
+[robot_state_publisher-2] [INFO] [1792907579.832956493] [robot_state_publisher]: got segment panda_link5
+[robot_state_publisher-2] [INFO] [1792907579.832959743] [robot_state_publisher]: got segment panda_link5_sc
+[robot_state_publisher-2] [INFO] [1792907579.832962549] [robot_state_publisher]: got segment panda_link6
+[robot_state_publisher-2] [INFO] [1792907579.832964542] [robot_state_publisher]: got segment panda_link6_sc
+[robot_state_publisher-2] [INFO] [1792907579.832966656] [robot_state_publisher]: got segment panda_link7
+[robot_state_publisher-2] [INFO] [1792907579.832968739] [robot_state_publisher]: got segment panda_link7_sc
+[robot_state_publisher-2] [INFO] [1792907579.832970880] [robot_state_publisher]: got segment panda_link8
+[robot_state_publisher-2] [INFO] [1792907579.832972803] [robot_state_publisher]: got segment panda_rightfinger
+[robot_state_publisher-2] [INFO] [1792907579.832974775] [robot_state_publisher]: got segment world
+[create-6] [INFO] [1792907579.833516671] [ros_gz_sim]: Waiting messages on topic [/robot_description].
+[planner_node-4] [INFO] [1792907579.837215767] [panda_ompl_planner]: idle: 等待机器人模型；/ompl_plan 仅规划，/ompl_move 规划并执行
+[planner_node-4] [INFO] [1792907579.844535500] [moveit_robot_model.robot_model]: Loading robot model 'panda'...
+[planner_node-4] [INFO] [1792907579.844550632] [moveit_robot_model.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[parameter_bridge-5] [INFO] [1792907579.846566075] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1792907579.847050707] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/target_contacts (ignition.msgs.Contacts) -> /target_contacts (ros_gz_interfaces/msg/Contacts)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1792907579.848028062] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/world/empty/dynamic_pose/info (ignition.msgs.Pose_V) -> /world/empty/dynamic_pose/info (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[planner_node-4] [INFO] [1792907579.858026110] [panda_ompl_planner]: idle: C++ OMPL 规划器就绪，已加载 27 个世界碰撞体；等待实际状态及目标
+[control_node-3] [INFO] [1792907579.858711901] [panda_pd_gravity_control]: 机器人重力模型已加载，包含活动夹爪质量
+[spawner-7] [INFO] [1792907580.032487068] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[spawner-9] [INFO] [1792907580.071888007] [spawner_panda_gripper_controller]: waiting for service /controller_manager/list_controllers to become available...
+[spawner-8] [INFO] [1792907580.078118335] [spawner_panda_effort_controller]: waiting for service /controller_manager/list_controllers to become available...
+[create-6] [INFO] [1792907580.297121791] [ros_gz_sim]: Requested creation of entity.
+[create-6] [INFO] [1792907580.297170125] [ros_gz_sim]: OK creation of entity.
+[INFO] [create-6]: process has finished cleanly [pid 79781]
+[ign-1] [INFO] [1792907581.953260329] [GazeboSimROS2ControlPlugin]: robot_param_node is robot_state_publisher
+[ign-1] [INFO] [1792907581.953278850] [GazeboSimROS2ControlPlugin]: robot_param_node is robot_description
+[ign-1] [INFO] [1792907582.632827775] [gz_ros2_control]: connected to service!! robot_state_publisher asking for robot_description
+[ign-1] [INFO] [1792907582.633112237] [gz_ros2_control]: Received URDF from param server
+[ign-1] [INFO] [1792907582.633635256] [gz_ros2_control]: [gz_ros2_control] Fixed joint [panda_joint_world] (Entity=154)] is skipped
+[ign-1] [INFO] [1792907582.635281823] [gz_ros2_control]: The position_proportional_gain has been set to: 0.1
+[ign-1] [INFO] [1792907582.635306451] [gz_ros2_control]: Loading joint: panda_joint1
+[ign-1] [INFO] [1792907582.635310991] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907582.635314046] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907582.635318440] [gz_ros2_control]: 			 found initial value: 0.000000
+[ign-1] [INFO] [1792907582.635322000] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907582.635324634] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907582.635326992] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907582.635333507] [gz_ros2_control]: Loading joint: panda_joint2
+[ign-1] [INFO] [1792907582.635335870] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907582.635338155] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907582.635341592] [gz_ros2_control]: 			 found initial value: -0.785398
+[ign-1] [INFO] [1792907582.635344470] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907582.635346636] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907582.635348708] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907582.635353096] [gz_ros2_control]: Loading joint: panda_joint3
+[ign-1] [INFO] [1792907582.635355328] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907582.635357356] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907582.635359429] [gz_ros2_control]: 			 found initial value: 0.000000
+[ign-1] [INFO] [1792907582.635361839] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907582.635364011] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907582.635365990] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907582.635370307] [gz_ros2_control]: Loading joint: panda_joint4
+[ign-1] [INFO] [1792907582.635372599] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907582.635375948] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907582.635379284] [gz_ros2_control]: 			 found initial value: -2.356194
+[ign-1] [INFO] [1792907582.635382931] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907582.635386105] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907582.635389402] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907582.635396421] [gz_ros2_control]: Loading joint: panda_joint5
+[ign-1] [INFO] [1792907582.635399489] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907582.635401542] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907582.635403962] [gz_ros2_control]: 			 found initial value: 0.000000
+[ign-1] [INFO] [1792907582.635406587] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907582.635408774] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907582.635410799] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907582.635415103] [gz_ros2_control]: Loading joint: panda_joint6
+[ign-1] [INFO] [1792907582.635417304] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907582.635419306] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907582.635421329] [gz_ros2_control]: 			 found initial value: 1.570796
+[ign-1] [INFO] [1792907582.635423715] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907582.635425790] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907582.635427777] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907582.635431694] [gz_ros2_control]: Loading joint: panda_joint7
+[ign-1] [INFO] [1792907582.635433831] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907582.635435915] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907582.635437994] [gz_ros2_control]: 			 found initial value: 0.785398
+[ign-1] [INFO] [1792907582.635440715] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907582.635444023] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907582.635447042] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907582.635453499] [gz_ros2_control]: Loading joint: panda_finger_joint1
+[ign-1] [INFO] [1792907582.635457063] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907582.635460129] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907582.635463591] [gz_ros2_control]: 			 found initial value: 0.040000
+[ign-1] [INFO] [1792907582.635466954] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907582.635469053] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907582.635471458] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907582.635480418] [gz_ros2_control]: Loading joint: panda_finger_joint2
+[ign-1] [INFO] [1792907582.635501957] [gz_ros2_control]: 	State:
+[ign-1] [INFO] [1792907582.635504788] [gz_ros2_control]: 		 position
+[ign-1] [INFO] [1792907582.635509626] [gz_ros2_control]: 			 found initial value: 0.040000
+[ign-1] [INFO] [1792907582.635512479] [gz_ros2_control]: 		 velocity
+[ign-1] [INFO] [1792907582.635514555] [gz_ros2_control]: 	Command:
+[ign-1] [INFO] [1792907582.635516596] [gz_ros2_control]: 		 effort
+[ign-1] [INFO] [1792907582.635589002] [resource_manager]: Initialize hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907582.635619600] [resource_manager]: Successful initialization of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907582.635646533] [resource_manager]: 'configure' hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907582.635650328] [gz_ros2_control]: System Successfully configured!
+[ign-1] [INFO] [1792907582.635656364] [resource_manager]: Successful 'configure' of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907582.635660815] [resource_manager]: 'activate' hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907582.635663289] [resource_manager]: Successful 'activate' of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907582.635666122] [gz_ros2_control]: Loading controller_manager
+[ign-1] [WARN] [1792907582.757018252] [gz_ros2_control]:  Desired controller update period (0.002 s) is slower than the gazebo simulation period (0 s).
+[ign-1] [INFO] [1792907582.787174632] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[spawner-7] [INFO] [1792907582.791797383] [spawner_joint_state_broadcaster]: [94mLoaded [1mjoint_state_broadcaster[0m
+[ign-1] [INFO] [1792907582.792505771] [controller_manager]: Configuring controller 'joint_state_broadcaster'
+[ign-1] [INFO] [1792907582.792579852] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[ign-1] [INFO] [1792907582.826417464] [controller_manager]: Loading controller 'panda_gripper_controller'
+[spawner-9] [INFO] [1792907582.832984440] [spawner_panda_gripper_controller]: [94mLoaded [1mpanda_gripper_controller[0m
+[ign-1] [INFO] [1792907582.833418903] [controller_manager]: Configuring controller 'panda_gripper_controller'
+[ign-1] [INFO] [1792907582.834109804] [panda_gripper_controller]: configure successful
+[ign-1] [INFO] [1792907582.834194552] [controller_manager]: Loading controller 'panda_effort_controller'
+[spawner-8] [INFO] [1792907582.837994617] [spawner_panda_effort_controller]: [94mLoaded [1mpanda_effort_controller[0m
+[ign-1] [INFO] [1792907582.838597720] [controller_manager]: Configuring controller 'panda_effort_controller'
+[ign-1] [INFO] [1792907582.838779716] [panda_effort_controller]: configure successful
+[ign-1] [INFO] [1792907582.866724941] [panda_effort_controller]: activate successful
+[ign-1] [INFO] [1792907582.866775695] [panda_gripper_controller]: activate successful
+[control_node-3] [INFO] [1792907582.909063779] [panda_pd_gravity_control]: max_error=0.0000 rad | saturated=false | tracking=false
+[INFO] [spawner-7]: process has finished cleanly [pid 79783]
+[INFO] [spawner-9]: process has finished cleanly [pid 79787]
+[INFO] [spawner-8]: process has finished cleanly [pid 79785]
+[startup_node-10] [INFO] [1792907583.335362567] [panda_startup]: 启动完成：三个控制器已激活，反馈与保持力矩就绪
+[control_node-3] [INFO] [1792907583.912114961] [panda_pd_gravity_control]: max_error=0.0008 rad | saturated=false | tracking=false
+[control_node-3] [INFO] [1792907584.917652573] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=false
+[planner_node-4] [INFO] [1792907584.961410672] [panda_ompl_planner]: pick_opening: C++ 抓放任务开始，张开夹爪
+[planner_node-4] [INFO] [1792907584.967456043] [panda_ompl_planner]: planning: C++ OMPL rrt_connect；七关节、静态环境及自碰撞检查
+[planner_node-4] Info:    RRTConnect: Starting planning with 1 states already in datastructure
+[planner_node-4] Info:    RRTConnect: Created 18 states (2 start + 16 goal)
+[planner_node-4] Info:    Solution found in 0.003341 seconds
+[planner_node-4] [INFO] [1792907585.007345591] [panda_ompl_planner]: OMPL: 0.003s，原始路径 17 点，输出轨迹 266 点，复检 957 样本，轨迹 5.29s，模式 bspline
+[planner_node-4] [INFO] [1792907585.007371766] [panda_ompl_planner]: planner=rrt_connect | first_solution=0.003s | raw_length=2.3009 | shortcut_length=2.2212 | validity_queries=140
+[planner_node-4] [INFO] [1792907585.007376180] [panda_ompl_planner]: 三次 B 样条＋全段时间缩放，保留非零中间速度；控制点细分倍数 1
+[planner_node-4] [INFO] [1792907585.007465098] [panda_ompl_planner]: planned: 路径、实际插值碰撞及限速检查通过；/ompl_execute 执行
+[planner_node-4] [INFO] [1792907585.007599431] [panda_ompl_planner]: sent: 已发送轨迹，等待控制器接受
+[control_node-3] [INFO] [1792907585.008707389] [panda_pd_gravity_control]: 接收 266 个轨迹点，总时长 5.29 秒
+[planner_node-4] [INFO] [1792907585.008769336] [panda_ompl_planner]: executing: 控制节点已接受 C++ 轨迹
+[control_node-3] [INFO] [1792907585.927835398] [panda_pd_gravity_control]: max_error=0.0016 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907586.936003355] [panda_pd_gravity_control]: max_error=0.0017 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907587.941491187] [panda_pd_gravity_control]: max_error=0.0014 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907588.945403671] [panda_pd_gravity_control]: max_error=0.0030 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907589.949328241] [panda_pd_gravity_control]: max_error=0.0023 rad | saturated=false | tracking=true
+[planner_node-4] [INFO] [1792907590.317461595] [panda_ompl_planner]: succeeded: 实际关节到位，最大误差 0.000390 rad
+[planner_node-4] [INFO] [1792907590.327519521] [panda_ompl_planner]: planning: C++ OMPL rrt_connect；七关节、静态环境及自碰撞检查
+[planner_node-4] [INFO] [1792907590.387443831] [panda_ompl_planner]: OMPL: 0.000s，原始路径 43 点，输出轨迹 519 点，复检 1516 样本，轨迹 9.59s，模式 cartesian_bspline
+[planner_node-4] [INFO] [1792907590.387479250] [panda_ompl_planner]: planner=cartesian_ik | first_solution=-1.000s | raw_length=0.0000 | shortcut_length=0.0000 | validity_queries=0
+[planner_node-4] [INFO] [1792907590.387490491] [panda_ompl_planner]: 三次 B 样条＋全段时间缩放，保留非零中间速度；控制点细分倍数 1；抓放实际插值已离散复检直线 2 mm / 姿态 0.025 rad 约束；Hermite 包络限速时间优化 19.174098 -> 9.587049 秒
+[planner_node-4] [INFO] [1792907590.387675167] [panda_ompl_planner]: planned: 路径、实际插值碰撞及限速检查通过；/ompl_execute 执行
+[planner_node-4] [INFO] [1792907590.387940180] [panda_ompl_planner]: sent: 已发送轨迹，等待控制器接受
+[control_node-3] [INFO] [1792907590.389853291] [panda_pd_gravity_control]: 接收 519 个轨迹点，总时长 9.59 秒
+[planner_node-4] [INFO] [1792907590.389939313] [panda_ompl_planner]: executing: 控制节点已接受 C++ 轨迹
+[control_node-3] [INFO] [1792907590.953477535] [panda_pd_gravity_control]: max_error=0.0007 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907591.959211122] [panda_pd_gravity_control]: max_error=0.0004 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907592.965174432] [panda_pd_gravity_control]: max_error=0.0007 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907593.977268634] [panda_pd_gravity_control]: max_error=0.0006 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907594.977386738] [panda_pd_gravity_control]: max_error=0.0005 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907595.989194541] [panda_pd_gravity_control]: max_error=0.0004 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907596.989203918] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907597.989452978] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907598.989320894] [panda_pd_gravity_control]: max_error=0.0004 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907599.993446425] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=false
+[planner_node-4] [INFO] [1792907599.997618107] [panda_ompl_planner]: succeeded: 实际关节到位，最大误差 0.000256 rad
+[planner_node-4] [INFO] [1792907600.007602690] [panda_ompl_planner]: pick_closing: 等待真实双指接触
+[control_node-3] [INFO] [1792907600.993286413] [panda_pd_gravity_control]: max_error=0.0005 rad | saturated=false | tracking=false
+[planner_node-4] [INFO] [1792907601.417728100] [panda_ompl_planner]: planning: C++ OMPL rrt_connect；七关节、静态环境及自碰撞检查
+[planner_node-4] [INFO] [1792907601.507637484] [panda_ompl_planner]: OMPL: 0.000s，原始路径 35 点，输出轨迹 491 点，复检 1440 样本，轨迹 9.19s，模式 cartesian_bspline
+[planner_node-4] [INFO] [1792907601.507704982] [panda_ompl_planner]: planner=cartesian_ik | first_solution=-1.000s | raw_length=0.0000 | shortcut_length=0.0000 | validity_queries=0
+[planner_node-4] [INFO] [1792907601.507718844] [panda_ompl_planner]: 三次 B 样条＋全段时间缩放，保留非零中间速度；控制点细分倍数 1；抓放实际插值已离散复检直线 2 mm / 姿态 0.025 rad 约束；Hermite 包络限速时间优化 18.382271 -> 9.191136 秒
+[planner_node-4] [INFO] [1792907601.507932850] [panda_ompl_planner]: planned: 路径、实际插值碰撞及限速检查通过；/ompl_execute 执行
+[planner_node-4] [INFO] [1792907601.508164359] [panda_ompl_planner]: sent: 已发送轨迹，等待控制器接受
+[control_node-3] [INFO] [1792907601.510238322] [panda_pd_gravity_control]: 接收 491 个轨迹点，总时长 9.19 秒
+[planner_node-4] [INFO] [1792907601.510322556] [panda_ompl_planner]: executing: 控制节点已接受 C++ 轨迹
+[control_node-3] [INFO] [1792907601.993568645] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907603.005452338] [panda_pd_gravity_control]: max_error=0.0032 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907604.005490417] [panda_pd_gravity_control]: max_error=0.0030 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907605.015256804] [panda_pd_gravity_control]: max_error=0.0027 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907606.025424336] [panda_pd_gravity_control]: max_error=0.0026 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907607.025213560] [panda_pd_gravity_control]: max_error=0.0026 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907608.025447046] [panda_pd_gravity_control]: max_error=0.0026 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907609.037432439] [panda_pd_gravity_control]: max_error=0.0026 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907610.047211338] [panda_pd_gravity_control]: max_error=0.0026 rad | saturated=false | tracking=true
+[planner_node-4] [INFO] [1792907610.717773672] [panda_ompl_planner]: succeeded: 实际关节到位，最大误差 0.002631 rad
+[planner_node-4] [INFO] [1792907610.727766010] [panda_ompl_planner]: pick_lifted: 真实抬升通过，C++ OMPL 携物转运
+[planner_node-4] [INFO] [1792907610.727829548] [panda_ompl_planner]: planning: C++ OMPL rrt_connect；七关节、静态环境及自碰撞检查
+[planner_node-4] Info:    RRTConnect: Starting planning with 1 states already in datastructure
+[planner_node-4] Info:    RRTConnect: Created 60 states (32 start + 28 goal)
+[planner_node-4] Info:    Solution found in 0.016929 seconds
+[planner_node-4] [INFO] [1792907610.937779255] [panda_ompl_planner]: OMPL: 0.017s，原始路径 43 点，输出轨迹 789 点，复检 2358 样本，轨迹 15.64s，模式 bspline
+[planner_node-4] [INFO] [1792907610.937817408] [panda_ompl_planner]: planner=rrt_connect | first_solution=0.017s | raw_length=6.1848 | shortcut_length=3.1889 | validity_queries=552
+[planner_node-4] [INFO] [1792907610.937829144] [panda_ompl_planner]: 三次 B 样条＋全段时间缩放，保留非零中间速度；控制点细分倍数 2
+[planner_node-4] [INFO] [1792907610.938077801] [panda_ompl_planner]: planned: 路径、实际插值碰撞及限速检查通过；/ompl_execute 执行
+[planner_node-4] [INFO] [1792907610.938446269] [panda_ompl_planner]: sent: 已发送轨迹，等待控制器接受
+[control_node-3] [INFO] [1792907610.941360870] [panda_pd_gravity_control]: 接收 789 个轨迹点，总时长 15.64 秒
+[planner_node-4] [INFO] [1792907610.941466934] [panda_ompl_planner]: executing: 控制节点已接受 C++ 轨迹
+[control_node-3] [INFO] [1792907611.047259039] [panda_pd_gravity_control]: max_error=0.0007 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907612.057269865] [panda_pd_gravity_control]: max_error=0.0041 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907613.057281249] [panda_pd_gravity_control]: max_error=0.0047 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907614.057529310] [panda_pd_gravity_control]: max_error=0.0033 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907615.069491435] [panda_pd_gravity_control]: max_error=0.0034 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907616.075380948] [panda_pd_gravity_control]: max_error=0.0040 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907617.087360571] [panda_pd_gravity_control]: max_error=0.0044 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907618.099442238] [panda_pd_gravity_control]: max_error=0.0044 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907619.099250543] [panda_pd_gravity_control]: max_error=0.0043 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907620.099434499] [panda_pd_gravity_control]: max_error=0.0049 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907621.111522421] [panda_pd_gravity_control]: max_error=0.0045 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907622.121229531] [panda_pd_gravity_control]: max_error=0.0040 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907623.133241441] [panda_pd_gravity_control]: max_error=0.0033 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907624.133369550] [panda_pd_gravity_control]: max_error=0.0032 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907625.145473280] [panda_pd_gravity_control]: max_error=0.0032 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907626.157276939] [panda_pd_gravity_control]: max_error=0.0026 rad | saturated=false | tracking=true
+[planner_node-4] [INFO] [1792907626.588040006] [panda_ompl_planner]: succeeded: 实际关节到位，最大误差 0.002129 rad
+[planner_node-4] [INFO] [1792907626.598082630] [panda_ompl_planner]: planning: C++ OMPL rrt_connect；七关节、静态环境及自碰撞检查
+[planner_node-4] [INFO] [1792907626.708019445] [panda_ompl_planner]: OMPL: 0.000s，原始路径 42 点，输出轨迹 590 点，复检 1729 样本，轨迹 11.01s，模式 cartesian_bspline
+[planner_node-4] [INFO] [1792907626.708057669] [panda_ompl_planner]: planner=cartesian_ik | first_solution=-1.000s | raw_length=0.0000 | shortcut_length=0.0000 | validity_queries=0
+[planner_node-4] [INFO] [1792907626.708069012] [panda_ompl_planner]: 三次 B 样条＋全段时间缩放，保留非零中间速度；控制点细分倍数 1；抓放实际插值已离散复检直线 2 mm / 姿态 0.025 rad 约束；Hermite 包络限速时间优化 22.027176 -> 11.013588 秒
+[planner_node-4] [INFO] [1792907626.708193350] [panda_ompl_planner]: planned: 路径、实际插值碰撞及限速检查通过；/ompl_execute 执行
+[planner_node-4] [INFO] [1792907626.708417302] [panda_ompl_planner]: sent: 已发送轨迹，等待控制器接受
+[control_node-3] [INFO] [1792907626.711598385] [panda_pd_gravity_control]: 接收 590 个轨迹点，总时长 11.01 秒
+[planner_node-4] [INFO] [1792907626.711702365] [panda_ompl_planner]: executing: 控制节点已接受 C++ 轨迹
+[control_node-3] [INFO] [1792907627.169246541] [panda_pd_gravity_control]: max_error=0.0029 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907628.169520524] [panda_pd_gravity_control]: max_error=0.0020 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907629.181471140] [panda_pd_gravity_control]: max_error=0.0020 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907630.191196801] [panda_pd_gravity_control]: max_error=0.0022 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907631.191568994] [panda_pd_gravity_control]: max_error=0.0024 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907632.203404150] [panda_pd_gravity_control]: max_error=0.0024 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907633.215501436] [panda_pd_gravity_control]: max_error=0.0025 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907634.227230182] [panda_pd_gravity_control]: max_error=0.0026 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907635.227248012] [panda_pd_gravity_control]: max_error=0.0027 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907636.239366396] [panda_pd_gravity_control]: max_error=0.0025 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907637.249244213] [panda_pd_gravity_control]: max_error=0.0014 rad | saturated=false | tracking=true
+[planner_node-4] [INFO] [1792907637.748206910] [panda_ompl_planner]: succeeded: 实际关节到位，最大误差 0.001248 rad
+[planner_node-4] [INFO] [1792907637.758205551] [panda_ompl_planner]: place_releasing: 下降完成，张开夹爪放下方块
+[control_node-3] [INFO] [1792907638.261460574] [panda_pd_gravity_control]: max_error=0.0013 rad | saturated=false | tracking=false
+[control_node-3] [INFO] [1792907639.273308994] [panda_pd_gravity_control]: max_error=0.0010 rad | saturated=false | tracking=false
+[planner_node-4] [INFO] [1792907639.678278180] [panda_ompl_planner]: planning: C++ OMPL rrt_connect；七关节、静态环境及自碰撞检查
+[planner_node-4] [INFO] [1792907639.748215365] [panda_ompl_planner]: OMPL: 0.000s，原始路径 50 点，输出轨迹 547 点，复检 1592 样本，轨迹 9.99s，模式 cartesian_bspline
+[planner_node-4] [INFO] [1792907639.748239904] [panda_ompl_planner]: planner=cartesian_ik | first_solution=-1.000s | raw_length=0.0000 | shortcut_length=0.0000 | validity_queries=0
+[planner_node-4] [INFO] [1792907639.748244607] [panda_ompl_planner]: 三次 B 样条＋全段时间缩放，保留非零中间速度；控制点细分倍数 1；抓放实际插值已离散复检直线 2 mm / 姿态 0.025 rad 约束；Hermite 包络限速时间优化 19.975767 -> 9.987884 秒
+[planner_node-4] [INFO] [1792907639.748309739] [panda_ompl_planner]: planned: 路径、实际插值碰撞及限速检查通过；/ompl_execute 执行
+[planner_node-4] [INFO] [1792907639.748457243] [panda_ompl_planner]: sent: 已发送轨迹，等待控制器接受
+[control_node-3] [INFO] [1792907639.750515403] [panda_pd_gravity_control]: 接收 547 个轨迹点，总时长 9.99 秒
+[planner_node-4] [INFO] [1792907639.750653871] [panda_ompl_planner]: executing: 控制节点已接受 C++ 轨迹
+[control_node-3] [INFO] [1792907640.285422941] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907641.297385995] [panda_pd_gravity_control]: max_error=0.0005 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907642.307234506] [panda_pd_gravity_control]: max_error=0.0001 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907643.319286057] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907644.319210155] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907645.319218464] [panda_pd_gravity_control]: max_error=0.0005 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907646.319342345] [panda_pd_gravity_control]: max_error=0.0005 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907647.331284122] [panda_pd_gravity_control]: max_error=0.0005 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907648.339240711] [panda_pd_gravity_control]: max_error=0.0004 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907649.351275813] [panda_pd_gravity_control]: max_error=0.0007 rad | saturated=false | tracking=true
+[planner_node-4] [INFO] [1792907649.748400880] [panda_ompl_planner]: succeeded: 实际关节到位，最大误差 0.000483 rad
+[planner_node-4] [INFO] [1792907649.758388906] [panda_ompl_planner]: returning_home: C++ OMPL 规划归位
+[planner_node-4] [INFO] [1792907649.758456579] [panda_ompl_planner]: planning: C++ OMPL rrt_connect；七关节、静态环境及自碰撞检查
+[planner_node-4] Info:    RRTConnect: Starting planning with 1 states already in datastructure
+[planner_node-4] Info:    RRTConnect: Created 426 states (203 start + 223 goal)
+[planner_node-4] Info:    Solution found in 0.083436 seconds
+[planner_node-4] [INFO] [1792907650.198390366] [panda_ompl_planner]: OMPL: 0.084s，原始路径 79 点，输出轨迹 2461 点，复检 7370 样本，轨迹 49.00s，模式 bspline
+[planner_node-4] [INFO] [1792907650.198428149] [panda_ompl_planner]: planner=rrt_connect | first_solution=0.084s | raw_length=11.5942 | shortcut_length=5.4676 | validity_queries=4297
+[planner_node-4] [INFO] [1792907650.198439844] [panda_ompl_planner]: 三次 B 样条＋全段时间缩放，保留非零中间速度；控制点细分倍数 4
+[planner_node-4] [INFO] [1792907650.198959877] [panda_ompl_planner]: planned: 路径、实际插值碰撞及限速检查通过；/ompl_execute 执行
+[planner_node-4] [INFO] [1792907650.199802516] [panda_ompl_planner]: sent: 已发送轨迹，等待控制器接受
+[control_node-3] [INFO] [1792907650.209120281] [panda_pd_gravity_control]: 接收 2461 个轨迹点，总时长 49.00 秒
+[planner_node-4] [INFO] [1792907650.209195781] [panda_ompl_planner]: executing: 控制节点已接受 C++ 轨迹
+[control_node-3] [INFO] [1792907650.363220840] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907651.363370778] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907652.375187683] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907653.375198418] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907654.375223351] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907655.375335244] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907656.387418807] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907657.388467298] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907658.398327216] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907659.398517080] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907660.408453296] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907661.408631800] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907662.420293329] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907663.420646002] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907664.432329068] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907665.432538610] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907666.444327840] [panda_pd_gravity_control]: max_error=0.0003 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907667.456305850] [panda_pd_gravity_control]: max_error=0.0005 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907668.456311111] [panda_pd_gravity_control]: max_error=0.0005 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907669.456422786] [panda_pd_gravity_control]: max_error=0.0005 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907670.468344706] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907671.468723514] [panda_pd_gravity_control]: max_error=0.0001 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907672.480526663] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907673.492292308] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907674.492407721] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907675.504569952] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907676.504554244] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907677.516264925] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907678.516315968] [panda_pd_gravity_control]: max_error=0.0001 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907679.516630259] [panda_pd_gravity_control]: max_error=0.0001 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907680.526397708] [panda_pd_gravity_control]: max_error=0.0001 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907681.526680164] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907682.536316352] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907683.548517538] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907684.548347888] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907685.548599903] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907686.560331470] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907687.560452883] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907688.572514227] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907689.584656242] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907690.584523897] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907691.584764450] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907692.596494843] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907693.608544052] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907694.620429887] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907695.632333892] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907696.632343417] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907697.632395090] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[control_node-3] [INFO] [1792907698.632409073] [panda_pd_gravity_control]: max_error=0.0002 rad | saturated=false | tracking=true
+[planner_node-4] [INFO] [1792907699.229155901] [panda_ompl_planner]: succeeded: 实际关节到位，最大误差 0.000224 rad
+[planner_node-4] [INFO] [1792907699.239156314] [panda_ompl_planner]: pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成
+[robot_state_publisher-2] [INFO] [1792907699.352159700] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[control_node-3] [INFO] [1792907699.352157778] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[parameter_bridge-5] [INFO] [1792907699.352158732] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_node-4] [INFO] [1792907699.352157688] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[startup_node-10] [INFO] [1792907699.352160933] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ign-1] [INFO] [1792907699.352236865] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ign-1] [INFO] [1792907699.352314395] [controller_manager]: Shutdown request received....
+[ign-1] [INFO] [1792907699.352361764] [controller_manager]: Shutting down all controllers in the controller manager.
+[ign-1] [INFO] [1792907699.352388248] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+[ign-1] [INFO] [1792907699.352434736] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[ign-1] [INFO] [1792907699.352470151] [controller_manager]: Deactivating controller 'panda_gripper_controller'
+[ign-1] [INFO] [1792907699.352511904] [controller_manager]: Shutting down controller 'panda_gripper_controller'
+[ign-1] [INFO] [1792907699.352534456] [controller_manager]: Deactivating controller 'panda_effort_controller'
+[ign-1] [INFO] [1792907699.352562269] [controller_manager]: Shutting down controller 'panda_effort_controller'
+[ign-1] [INFO] [1792907699.352608404] [resource_manager]: 'deactivate' hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907699.352624949] [resource_manager]: Successful 'deactivate' of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907699.352632098] [resource_manager]: 'shutdown' hardware 'PandaSimSystem' 
+[ign-1] [INFO] [1792907699.352637643] [resource_manager]: Successful 'shutdown' of hardware 'PandaSimSystem'
+[ign-1] [INFO] [1792907699.352644206] [controller_manager]: Shutting down the controller manager.
+[INFO] [startup_node-10]: process has finished cleanly [pid 79789]
+[INFO] [parameter_bridge-5]: process has finished cleanly [pid 79779]
+[INFO] [robot_state_publisher-2]: process has finished cleanly [pid 79773]
+[INFO] [launch]: process[startup_node-10] was required: shutting down launched system
+[INFO] [control_node-3]: process has finished cleanly [pid 79775]
+[INFO] [planner_node-4]: sending signal 'SIGINT' to process[planner_node-4]
+[INFO] [ign-1]: sending signal 'SIGINT' to process[ign-1]
+[INFO] [launch]: process[control_node-3] was required: shutting down launched system
+[INFO] [planner_node-4]: process has finished cleanly [pid 79777]
+[INFO] [launch]: process[planner_node-4] was required: shutting down launched system
+[ERROR] [ign-1]: process has died [pid 79771, exit code -11, cmd 'ign gazebo -s /home/jasonz/panda_control_ws/install/panda_planning/share/panda_planning/worlds/world.sdf'].
+[INFO] [launch]: process[ign-1] was required: shutting down launched system

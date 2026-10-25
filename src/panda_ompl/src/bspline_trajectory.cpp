@@ -103,6 +103,28 @@ PlanResult PlanningEngine::bspline_path(const std::vector<Q>&input,PlanResult in
       std::sqrt((1.875*1.875*d2[j]+(10*std::sqrt(3.)/3)*d1[j])/acceleration)});
     duration*=1.10;
     if(!std::isfinite(duration)||duration>400){rejection="B 样条时间缩放过大";continue;}
+    const double conservative_duration=duration;
+    if(constraint && tight_cartesian_timing_) {
+      // Estimate the composed curve derivatives at their actual time phase.
+      // Unlike the old bound, this does not combine unrelated global maxima.
+      // Sampling is ONLY an initial estimate, not the final limit certificate.
+      double estimated=.3;
+      const int samples=std::max(400,int(curve.controls.size())*8);
+      for(int k=0;k<=samples;++k) {
+        const double r=double(k)/samples;
+        const double u=std::clamp(10*std::pow(r,3)-15*std::pow(r,4)+6*std::pow(r,5),0.,1.);
+        const double du=30*r*r-60*r*r*r+30*r*r*r*r;
+        const double ddu=60*r-180*r*r+120*r*r*r;
+        const auto v=first.evaluate(u),a=second.evaluate(u);
+        for(int j=0;j<7;++j)estimated=std::max({estimated,
+          std::abs(v[j]*du)/(speed_[j]*scale),
+          std::sqrt(std::abs(a[j]*du*du+v[j]*ddu)/acceleration)});
+      }
+      // Limit this first optimization to at most 2x speed-up. Retain 10% margin.
+      duration=std::min(conservative_duration,std::max(.5*conservative_duration,1.10*estimated));
+    }
+    auto build_trajectory=[&](double requested_duration) {
+    double duration=requested_duration;
     const int64_t end_ns=static_cast<int64_t>(std::ceil(duration*1e9));
     duration=double(end_ns)*1e-9;
     const int intervals=std::max(2,int(std::ceil(duration/.02)));
@@ -134,6 +156,34 @@ PlanResult PlanningEngine::bspline_path(const std::vector<Q>&input,PlanResult in
     }
     result.trajectory.points.front().positions=points.front();
     result.trajectory.points.back().positions=points.back();
+    return result;
+    };
+    PlanResult result;
+    bool timing_passed=false;
+    for(int attempt=0;attempt<6;++attempt) {
+      // Last attempt restores the original conservative duration.
+      if(attempt==5)duration=conservative_duration;
+      result=build_trajectory(duration);
+      double stretch=1.;
+      for(std::size_t i=1;i<result.trajectory.points.size();++i) {
+        const auto &a=result.trajectory.points[i-1],&b=result.trajectory.points[i];
+        const double dt=double(stamp(b)-stamp(a))*1e-9;
+        const auto c=coefficients(a,b,dt);
+        std::array<Q,6> bernstein;for(auto &q:bernstein)q=Q(7,0.);
+        for(int k=0;k<6;++k)for(int d=0;d<=k;++d)for(int j=0;j<7;++j)
+          bernstein[k][j]+=c[d][j]*double(choose(k,d))/choose(5,d);
+        for(int j=0;j<7;++j) {
+          for(int k=0;k<5;++k)stretch=std::max(stretch,
+            5*std::abs(bernstein[k+1][j]-bernstein[k][j])/(dt*speed_[j]*scale));
+          for(int k=0;k<4;++k)stretch=std::max(stretch,std::sqrt(
+            20*std::abs(bernstein[k+2][j]-2*bernstein[k+1][j]+bernstein[k][j])/(dt*dt*acceleration)));
+        }
+      }
+      if(std::isfinite(stretch)&&stretch<=1+1e-6){timing_passed=true;break;}
+      if(!std::isfinite(stretch))break;
+      duration=std::min(conservative_duration,duration*stretch*1.05);
+    }
+    if(!timing_passed){rejection="Hermite 时间缩放复检未通过";continue;}
     bool acceptable=true;
     for(std::size_t i=1;i<result.trajectory.points.size()&&acceptable;++i) {
       const auto &a=result.trajectory.points[i-1],&b=result.trajectory.points[i];
@@ -177,6 +227,8 @@ PlanResult PlanningEngine::bspline_path(const std::vector<Q>&input,PlanResult in
       result.trajectory_type=constraint?"cartesian_bspline":"bspline";
       result.smoothing_note="三次 B 样条＋全段时间缩放，保留非零中间速度；控制点细分倍数 "+std::to_string(refinement);
       if(constraint)result.smoothing_note+="；抓放实际插值已离散复检直线 2 mm / 姿态 0.025 rad 约束";
+      if(constraint && tight_cartesian_timing_)result.smoothing_note+=
+        "；Hermite 包络限速时间优化 "+std::to_string(conservative_duration)+" -> "+std::to_string(result.duration)+" 秒";
       return result;
     }
   }
