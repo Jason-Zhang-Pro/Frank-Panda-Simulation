@@ -1,0 +1,2 @@
+algorithm,seed,success,task_wall_s,task_sim_s,planned_segments,arrived_segments,planned_length_rad,actual_sampled_length_rad,reference_s,cube_x,cube_y,cube_z,terminal
+rrt,2,0,142.688533629,142.69,6,6,8.16473297468,8.19632783673,99.805137314,0.319290512371,-0.550641049927,0.3499999902,"pick_place_home_failed: failed: rrt 未找到精确路径：Approximate solution；保持夹爪指令"

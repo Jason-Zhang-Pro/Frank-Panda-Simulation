@@ -1,0 +1,2 @@
+algorithm,seed,success,task_wall_s,task_sim_s,planned_segments,arrived_segments,planned_length_rad,actual_sampled_length_rad,reference_s,cube_x,cube_y,cube_z,terminal
+rrt_connect,1,0,97.5928904,97.588,5,4,7.31435176823,7.33722194673,80.375568847,0.316857138964,-0.553307511312,0.363536329663,"pick_place_failed: failed: 执行超时或仿真时间重置，检查控制器状态；保持夹爪指令"
