@@ -17,6 +17,9 @@ class ControlNode : public rclcpp::Node {
     kd_=gains("kd",{2.2,11,2.75,13.2,1.65,3.3,.55});
     limits_=gains("torque_limits",{40,70,35,35,10,10,8});
     gravity_scale_=declare_parameter("gravity_scale",1.);
+    gripper_close_kp_=declare_parameter("gripper_close_kp",400.);
+    if(!std::isfinite(gripper_close_kp_)||gripper_close_kp_<=0)
+      throw std::runtime_error("gripper_close_kp 必须为有限正数");
     if(gravity_scale_!=0&&gravity_scale_!=1)throw std::runtime_error("gravity_scale 只支持 0 或 1");
     torque_pub_=create_publisher<std_msgs::msg::Float64MultiArray>("/panda_effort_controller/commands",1);
     finger_pub_=create_publisher<std_msgs::msg::Float64MultiArray>("/panda_gripper_controller/commands",1);
@@ -116,7 +119,7 @@ class ControlNode : public rclcpp::Node {
     if(gripper_stamp_&&stamp<*gripper_stamp_)gripper_ref_=(fingers[0]+fingers[1])/2;
     gripper_stamp_=stamp;gripper_ref_+=std::clamp(gripper_goal_-gripper_ref_,-.02*dt,.02*dt);
     std::array<double,2> force{};
-    for(int j=0;j<2;++j)force[j]=std::clamp((gripper_goal_==0?200.:100.)*(gripper_ref_-fingers[j])-finger_speed[j],-5.,5.);
+    for(int j=0;j<2;++j)force[j]=std::clamp((gripper_goal_==0?gripper_close_kp_:100.)*(gripper_ref_-fingers[j])-finger_speed[j],-5.,5.);
     publish(force,finger_pub_);
     if(last_stamp_&&stamp>=*last_stamp_&&stamp-*last_stamp_<.01)return;
     if(last_stamp_&&stamp<*last_stamp_) {
@@ -153,7 +156,8 @@ class ControlNode : public rclcpp::Node {
     publish(Joints{},torque_pub_);publish(std::array<double,2>{},finger_pub_);
     if(!warned_){RCLCPP_WARN(get_logger(),"反馈超时，已发零力矩；零力矩不支撑重力");warned_=true;}
   }
-  Joints kp_{},kd_{},limits_{};double gravity_scale_=1,gripper_goal_=.04,gripper_ref_=.04;
+  Joints kp_{},kd_{},limits_{};double gripper_close_kp_=400.;
+  double gravity_scale_=1,gripper_goal_=.04,gripper_ref_=.04;
   bool model_failed_=false,warned_=false;
   std::unique_ptr<GravityModel> model_;std::unique_ptr<TimedTrajectory> trajectory_;
   std::optional<Joints> current_,hold_,servo_q_;

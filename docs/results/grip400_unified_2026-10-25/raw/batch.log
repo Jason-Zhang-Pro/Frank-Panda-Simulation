@@ -1,0 +1,19 @@
+START algorithm=rrt seed=1
+TRIAL_DONE success=1 wall_s=110.425 pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成
+START algorithm=rrt_connect seed=1
+TRIAL_DONE success=1 wall_s=114.787 pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成
+START algorithm=rrt_star seed=1
+TRIAL_DONE success=0 wall_s=85.934 pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令
+START algorithm=rrt seed=2
+TRIAL_DONE success=0 wall_s=101.818 pick_place_home_failed: failed: rrt 未找到精确路径：Approximate solution；保持夹爪指令
+START algorithm=rrt_connect seed=2
+TRIAL_DONE success=1 wall_s=110.873 pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成
+START algorithm=rrt_star seed=2
+TRIAL_DONE success=0 wall_s=85.9479 pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令
+START algorithm=rrt seed=3
+TRIAL_DONE success=0 wall_s=55.9527 pick_place_failed: failed: rrt 未找到精确路径：Approximate solution；保持夹爪指令
+START algorithm=rrt_connect seed=3
+TRIAL_DONE success=0 wall_s=49.0032 pick_place_failed: 方块实际放置位置不正确；保持夹爪指令
+START algorithm=rrt_star seed=3
+TRIAL_DONE success=0 wall_s=85.8567 pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令
+DONE raw_results=/home/jasonz/panda_control_ws/results/grip400_unified_20261025/formal

@@ -1,80 +1,86 @@
-# 三算法统一 Gazebo 对比：30 秒预算与优化抓放时间
+# 增强夹持后的三算法统一 Gazebo 对比
 
-本组重新运行 RRT、RRT-Connect、RRT*，每种算法三个种子，共 **9 次全新有效任务**。全部使用当前 `bounded` 抓放时间分配，不复用此前 RRT-Connect 的三次时间优化验证，也不混入旧保守时间组。
+本批是九次全新任务：RRT、RRT-Connect、RRT* 各运行种子 1/2/3。夹爪闭合增益从 **200 调至 400 N/m**，每指输出上限仍为 **5 N**，不更改模型力限值。更高增益使接触后的指令更容易达到力上限；如果原先已经饱和，不能继续增加夹持力。
 
 ## 统一条件
 
-同一机器人、场景、PD 配置、shortcut、B 样条和碰撞检查；七轴速度比例 0.3、参考加速度上限 0.9 rad/s²。抓放段采用 IK 直线路径与约束 B 样条；时间分配以实际控制 Hermite 插值的 Bernstein 包络复检，最多较保守估计提速两倍。全局接近、搬运、归位的时间分配未在本次调整。
+每次全局搜索预算 30 秒，整套任务上限 240 秒。统一场景、机械臂 PD、shortcut、B 样条、bounded 抓放时间、速度比例 0.3 和参考加速度上限 0.9 rad/s²。各次重建隔离的无 GUI Gazebo 世界，按种子交错运行算法，不改动原有仿真实例。完整任务要求真实抓取、放置、松爪和归位七段全部到位。全部有效失败保留，不以成功重跑替换。
 
-每次全局搜索预算 30 秒，整套任务上限 240 秒；按种子 1/2/3 交错运行三种算法。每次新建隔离的无 GUI Gazebo 世界，真实模拟接触、夹持与方块运动。完整成功只认 `pick_place_succeeded`，要求抓取、放置、松开及归位七段到位。失败保留，不重新抽取成功样本。
+与上一批相比，有意改变的运动参数仅为夹爪闭合增益。物理接触、初始反馈和调度并非确定性回放；相同种子不保证相同状态。两批均只有每算法三次，不能证明夹持力变化导致成功率变化，也没有测量物体晃动幅值或接触力。
 
-启动前有一次控制器列表服务响应超时，任务尚未提交，单独保留日志。随后为只读列表查询增加最多三次有限重试，重试期间保持暂停；九次有效任务全部使用修正后的同一版本。激活和步进操作没有隐式重试。
-
-环境为 i7-14650HX、ROS 2 Humble、OMPL 1.7、MoveIt Core 2.5.10、FCL 0.7。原有 GUI 实例保留；未锁定 CPU 频率，物理初始化与接触并非确定性回放，同种子不保证相同状态。此处是小样本场景结果，不能当作通用算法成功率。
-
-## 完整任务与携物规划
+## 本批结果
 
 | 算法 | 携物轨迹生成成功 | 完整任务成功 | 成功任务墙钟均值 / s |
 |---|---:|---:|---:|
-| RRT | 1/3 | 1/3 | 102.77 |
-| RRT-Connect | 3/3 | 2/3 | 102.29 |
+| RRT | 2/3 | 1/3 | 110.42 |
+| RRT-Connect | 3/3 | 2/3 | 112.83 |
 | RRT* | 0/3 | 0/3 | — |
 
-携物列要求搜索及后处理轨迹复检通过；完整任务列还要求实际执行完成。成功任务时间仅对成功样本求均值，失败任务前缀时间不参与效率排名。
+成功任务耗时只对成功样本求均值，不能用失败前缀耗时进行效率排名。
 
-## 结果分析
+## 与前一批对照
 
-本场景中 RRT-Connect 的三次携物轨迹均通过复检，搜索约 0.016～0.065 秒；两次完整成功，另一次在放置、松爪之后的撤离 IK 失败。它仍是当前默认方案，但不能据此宣称任务已稳定完成。
+| 算法 | 旧携物轨迹通过 | 新携物轨迹通过 | 旧完整成功 | 新完整成功 |
+|---|---:|---:|---:|---:|
+| RRT | 1/3 | 2/3 | 1/3 | 1/3 |
+| RRT-Connect | 3/3 | 3/3 | 2/3 | 2/3 |
+| RRT* | 0/3 | 0/3 | 0/3 | 0/3 |
 
-RRT 种子 1 的携物搜索约 7.13 秒并完整执行；种子 2 搜索找到解后，最终轨迹因 link5 与上方横梁碰撞被拒绝；种子 3 未找到精确解。RRT* 的种子 1、3 未找到精确解，种子 2 则在最终轨迹碰撞复检失败。这些是不同失败来源，不能全部称为搜索超时。
+上一批 RRT-Connect 的一次失败发生在放置后的撤离 IK，日志不能确认其根因是方块晃动。此次重新验证增强闭合增益后的流程，不把调整动机当作已经证实的原因。[上一批完整报告](planner_comparison_grip200.md)。
 
-与此前仅对 RRT-Connect 的三次时间优化验证相比，本轮仍出现撤离 IK 失败，说明接触与物理状态变化会影响后续可达性。后续优先排查撤离起点和 IK 鲁棒性，以及平滑后碰撞失败的处理策略，再扩大样本。
+## 本轮观察
+
+三种算法的完整成功次数与上一批相同：RRT 为 1/3、RRT-Connect 为 2/3、RRT* 为 0/3，因此本轮没有证明增强夹持提高了整体成功率。
+
+RRT 的携物轨迹通过从 1/3 变为 2/3，但种子 2 在归位搜索中未找到精确解。RRT-Connect 种子 2 这次顺利通过撤离并归位，上一批的撤离 IK 失败没有复现；种子 3 则在放置、松爪后检查到方块实际位置不正确，末次记录坐标约为 (0.3530, -0.5557, 0.3499) m。代码要求方块与放置目标的位置距离不超过 0.025 m，本次没有放宽判据。仅凭终止记录不能区分滑动、接触或释放过程中的具体成因。
+
+RRT* 三次均在携物搜索中未找到精确解。本轮没有出现最终轨迹碰撞复检失败，但小样本与非确定性状态不足以证明这一变化来自夹持调整。后续应增加夹持力、物体相对夹爪位姿与释放过程的记录，再针对性调整。
 
 ## 同类初始接近段
 
-以下均为每种算法三个初始接近请求的平均值。长度为七维关节空间欧氏累计长度，单位 rad。
+均值基于每算法三个初始接近请求，长度为七维关节空间累计欧氏长度。RRT* solve 包含持续优化，首解由回调记录，无回调时用返回时间近似。
 
 | 算法 | solve / s | 首解 / s | 原始长度 / rad | shortcut 后 / rad |
 |---|---:|---:|---:|---:|
-| RRT | 0.3921 | 0.3923 | 5.2033 | 2.2212 |
-| RRT-Connect | 0.0040 | 0.0037 | 2.3497 | 2.2212 |
-| RRT* | 30.0706 | 8.8483 | 5.3061 | 2.2213 |
+| RRT | 0.3447 | 0.3447 | 5.2032 | 2.2212 |
+| RRT-Connect | 0.0044 | 0.0047 | 2.3497 | 2.2211 |
+| RRT* | 30.0323 | 1.1683 | 5.2032 | 2.2221 |
 
-RRT* 的 solve 包含预算内持续优化，首解来自中间解回调，无回调时采用返回时间近似。最终路径受到共同 shortcut 影响，不能把简化后的长度完全归因于搜索算法。没有测量 jerk 或振荡 RMS，也没有关闭平滑的物理消融，不提供抖动改善百分比。
+共同 shortcut 会显著影响最终长度，不能将最终长度全部归因于搜索算法。未做平滑消融、jerk 或振荡 RMS 测量。
 
-## 逐任务记录
+## 逐任务结果
 
-墙钟时间从提交任务到终止，不含冷启动。失败任务的路径、耗时与段数只覆盖前缀。
+墙钟从提交任务至终止，不包含冷启动。失败段数与时间仅覆盖任务前缀。
 
-| 算法 | 种子 | 完整成功 | 墙钟 / s | 生成 / 到位段数 | 终止原因 |
+| 算法 | 种子 | 完整成功 | 墙钟 / s | 生成 / 到位段数 | 终止状态 |
 |---|---:|---|---:|---:|---|
-| RRT | 1 | 是 | 102.77 | 7 / 7 | pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成 |
-| RRT-Connect | 1 | 是 | 114.31 | 7 / 7 | pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成 |
-| RRT* | 1 | 否 | 86.00 | 3 / 3 | pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令 |
-| RRT | 2 | 否 | 26.44 | 3 / 3 | pick_place_failed: failed: 轨迹碰撞复检失败：碰撞: overhead_bridge <-> panda_link5；保持夹爪指令 |
-| RRT-Connect | 2 | 否 | 69.58 | 5 / 5 | pick_place_failed: failed: 未找到满足末端误差和碰撞约束的 IK；保持夹爪指令 |
-| RRT* | 2 | 否 | 86.58 | 3 / 3 | pick_place_failed: failed: 轨迹碰撞复检失败：碰撞: overhead_bridge <-> panda_link5；保持夹爪指令 |
-| RRT | 3 | 否 | 55.89 | 3 / 3 | pick_place_failed: failed: rrt 未找到精确路径：Approximate solution；保持夹爪指令 |
-| RRT-Connect | 3 | 是 | 90.27 | 7 / 7 | pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成 |
-| RRT* | 3 | 否 | 85.93 | 3 / 3 | pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令 |
+| RRT | 1 | 是 | 110.42 | 7 / 7 | pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成 |
+| RRT-Connect | 1 | 是 | 114.79 | 7 / 7 | pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成 |
+| RRT* | 1 | 否 | 85.93 | 3 / 3 | pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令 |
+| RRT | 2 | 否 | 101.82 | 6 / 6 | pick_place_home_failed: failed: rrt 未找到精确路径：Approximate solution；保持夹爪指令 |
+| RRT-Connect | 2 | 是 | 110.87 | 7 / 7 | pick_place_succeeded: 真实抓取、放置、松开和避障归位全部完成 |
+| RRT* | 2 | 否 | 85.95 | 3 / 3 | pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令 |
+| RRT | 3 | 否 | 55.95 | 3 / 3 | pick_place_failed: failed: rrt 未找到精确路径：Approximate solution；保持夹爪指令 |
+| RRT-Connect | 3 | 否 | 49.00 | 5 / 5 | pick_place_failed: 方块实际放置位置不正确；保持夹爪指令 |
+| RRT* | 3 | 否 | 85.86 | 3 / 3 | pick_place_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令 |
 
-## 携物阶段
+## 携物搜索与最终轨迹复检
 
 | 算法 | 种子 | 轨迹生成 | solve / s | 结果 |
 |---|---:|---|---:|---|
-| RRT | 1 | 通过 | 7.1304 | 轨迹复检通过 |
-| RRT-Connect | 1 | 通过 | 0.0159 | 轨迹复检通过 |
-| RRT* | 1 | 失败 | 30.0613 | failed: rrt_star 未找到精确路径：Approximate solution |
-| RRT | 2 | 失败 | 0.1825 | failed: 轨迹碰撞复检失败：碰撞: overhead_bridge <-> panda_link5 |
-| RRT-Connect | 2 | 通过 | 0.0572 | 轨迹复检通过 |
-| RRT* | 2 | 失败 | 30.0714 | failed: 轨迹碰撞复检失败：碰撞: overhead_bridge <-> panda_link5 |
-| RRT | 3 | 失败 | 30.0848 | failed: rrt 未找到精确路径：Approximate solution |
-| RRT-Connect | 3 | 通过 | 0.0645 | 轨迹复检通过 |
-| RRT* | 3 | 失败 | 30.0573 | failed: rrt_star 未找到精确路径：Approximate solution |
+| RRT | 1 | 通过 | 19.8960 | 最终轨迹复检通过 |
+| RRT-Connect | 1 | 通过 | 0.0158 | 最终轨迹复检通过 |
+| RRT* | 1 | 失败 | 30.0799 | failed: rrt_star 未找到精确路径：Approximate solution |
+| RRT | 2 | 通过 | 7.8380 | 最终轨迹复检通过 |
+| RRT-Connect | 2 | 通过 | 0.0528 | 最终轨迹复检通过 |
+| RRT* | 2 | 失败 | 30.0142 | failed: rrt_star 未找到精确路径：Approximate solution |
+| RRT | 3 | 失败 | 30.0881 | failed: rrt 未找到精确路径：Approximate solution |
+| RRT-Connect | 3 | 通过 | 0.0562 | 最终轨迹复检通过 |
+| RRT* | 3 | 失败 | 30.0042 | failed: rrt_star 未找到精确路径：Approximate solution |
 
 ## 数据与复现
 
-[逐任务](results/unified_bounded_30s_2026-10-25/trials.csv) · [逐阶段](results/unified_bounded_30s_2026-10-25/phases.csv) · [汇总](results/unified_bounded_30s_2026-10-25/summary.csv) · [日志与输入快照](results/unified_bounded_30s_2026-10-25/README.md)
+[逐任务](results/grip400_unified_2026-10-25/trials.csv) · [逐阶段](results/grip400_unified_2026-10-25/phases.csv) · [汇总](results/grip400_unified_2026-10-25/summary.csv) · [原始日志与输入快照](results/grip400_unified_2026-10-25/README.md)
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -82,8 +88,8 @@ cd ~/panda_control_ws
 source install/setup.bash
 CARTESIAN_TIMING=bounded RUNS=3 TIMEOUT=30.0 \
   ALGORITHMS='rrt rrt_connect rrt_star' \
-  BENCHMARK_ROS_DOMAIN_ID=40 \
-  BENCHMARK_IGN_PARTITION=panda_unified ./tools/compare_gazebo.sh
+  BENCHMARK_ROS_DOMAIN_ID=60 \
+  BENCHMARK_IGN_PARTITION=panda_grip400 ./tools/compare_gazebo.sh
 ```
 
-[旧保守时间的 5/30 秒对照](planner_comparison_conservative.md)与[此前单独的时间优化验证](cartesian_timing.md)作为独立历史组保留。当前默认搜索预算仍为 15 秒，此组通过启动参数覆盖为 30 秒。下一步扩大样本、定位失败阶段，并探索 A*。
+当前 controller.yaml 的 gripper_close_kp=400.0，每指力上限仍为 5 N。复现旧夹持配置需设为 200.0 并重启控制节点。环境与库版本、源码和输入哈希随原始数据保存。碰撞复检为离散采样，参考轨迹通过不代表实际物理运动绝对无碰撞。下一步继续定位失败阶段、扩大样本，并探索 A*。

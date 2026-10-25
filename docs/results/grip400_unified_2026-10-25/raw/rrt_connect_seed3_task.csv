@@ -1,0 +1,2 @@
+algorithm,seed,success,task_wall_s,task_sim_s,planned_segments,arrived_segments,planned_length_rad,actual_sampled_length_rad,reference_s,cube_x,cube_y,cube_z,terminal
+rrt_connect,3,0,49.003224748,49.002,5,5,7.26593119895,7.34689391357,45.07795125,0.353046453769,-0.555674224709,0.349920449769,"pick_place_failed: 方块实际放置位置不正确；保持夹爪指令"

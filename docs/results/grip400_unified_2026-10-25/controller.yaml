@@ -1,0 +1,10 @@
+# Seven values are ordered panda_joint1 ... panda_joint7.
+# Loaded at startup; restart the control node after editing.
+panda_pd_gravity_control:
+  ros__parameters:
+    kp: [80.0, 100.0, 80.0, 100.0, 30.0, 20.0, 10.0]
+    kd: [2.2, 11.0, 2.75, 13.2, 1.65, 3.3, 0.55]
+    torque_limits: [40.0, 70.0, 35.0, 35.0, 10.0, 10.0, 8.0]
+    gravity_scale: 1.0
+    # Closing stiffness (N/m); per-finger force remains limited to 5 N.
+    gripper_close_kp: 400.0
