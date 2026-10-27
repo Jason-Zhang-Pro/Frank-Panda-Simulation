@@ -14,6 +14,9 @@ struct PlanResult {
   trajectory_msgs::msg::JointTrajectory trajectory;
   std::size_t raw_points = 0, checked_samples = 0;
   double search_seconds = 0, duration = 0;
+  double roadmap_build_seconds = 0, roadmap_query_seconds = 0;
+  std::size_t roadmap_nodes = 0, roadmap_edges = 0;
+  bool roadmap_reused = false;
   std::string planner = "rrt_connect";
   double first_solution_seconds = -1;
   double raw_length = 0, shortcut_length = 0;
@@ -57,6 +60,9 @@ public:
                   bool shortcut = true, double velocity_scale = .2,
                   double acceleration = .6);
 private:
+  std::vector<Q> roadmap_points_;
+  std::vector<std::vector<std::size_t>> roadmap_edges_;
+  std::vector<Q> prm_astar_path(const Q &start, const Q &goal, double timeout, PlanResult &result);
   std::vector<Q> astar_path(const Q &start, const Q &goal, double timeout, PlanResult &result);
   std::string algorithm_ = "rrt_connect";
   bool bspline_enabled_ = false;

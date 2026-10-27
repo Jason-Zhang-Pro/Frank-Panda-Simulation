@@ -6,5 +6,11 @@ panda_pd_gravity_control:
     kd: [2.2, 11.0, 2.75, 13.2, 1.65, 3.3, 0.55]
     torque_limits: [40.0, 70.0, 35.0, 35.0, 10.0, 10.0, 8.0]
     gravity_scale: 1.0
-    # Closing stiffness (N/m); per-finger force remains limited to 5 N.
+    # Closing stiffness (N/m), and per-finger closing force limit (N).
     gripper_close_kp: 400.0
+    gripper_close_force_limit: 10.0
+    # Inward effort per finger after confirmed bilateral cube contact.
+    gripper_hold_force: 10.0
+    # Finger aperture midpoint only; does not modify seven-axis arm gains.
+    gripper_center_kp: 200.0
+    gripper_center_kd: 4.0

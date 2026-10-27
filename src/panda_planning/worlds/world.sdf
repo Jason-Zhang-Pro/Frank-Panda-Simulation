@@ -78,7 +78,7 @@
     </model>
     <model name="pillar_right">
       <static>true</static>
-      <pose>0.54 -0.32 0.275 0 0 0</pose>
+      <pose>0.60 -0.32 0.275 0 0 0</pose>
       <link name="link">
         <visual name="visual">
           <geometry>
@@ -299,7 +299,7 @@
     </model>
     <model name="center_partition">
       <static>true</static>
-      <pose>0.46 -0.08 0.21 0 0 0</pose>
+      <pose>0.46 -0.12 0.21 0 0 0</pose>
       <link name="link">
         <visual name="visual">
           <geometry>
@@ -400,7 +400,7 @@
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.34 0.035 0.1</size>
+              <size>0.304 0.035 0.1</size>
             </box>
           </geometry>
           <material>
@@ -411,7 +411,7 @@
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.34 0.035 0.1</size>
+              <size>0.304 0.035 0.1</size>
             </box>
           </geometry>
         </collision>
@@ -520,7 +520,7 @@
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.52 0.26 0.05</size>
+              <size>0.418 0.26 0.05</size>
             </box>
           </geometry>
           <material>
@@ -531,7 +531,7 @@
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.52 0.26 0.05</size>
+              <size>0.418 0.26 0.05</size>
             </box>
           </geometry>
         </collision>
@@ -544,7 +544,7 @@
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.52 0.26 0.05</size>
+              <size>0.418 0.26 0.05</size>
             </box>
           </geometry>
           <material>
@@ -555,7 +555,7 @@
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.52 0.26 0.05</size>
+              <size>0.418 0.26 0.05</size>
             </box>
           </geometry>
         </collision>

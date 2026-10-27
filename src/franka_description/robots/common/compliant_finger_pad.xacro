@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Lumped normal compliance, not a continuum rubber material. -->
+  <xacro:macro name="compliant_pad_tile" params="parent side sx sz stiffness damping travel">
+    <xacro:property name="tile" value="${parent}_pad_${sx}_${sz}"/>
+    <link name="${tile}">
+      <inertial><mass value="0.0005"/><inertia ixx="3.541666667e-9" iyy="6.385416667e-9" izz="3.177083333e-9" ixy="0" ixz="0" iyz="0"/></inertial>
+      <visual><geometry><box size="0.0085 0.002 0.009"/></geometry><material name="rubber_pad_black"><color rgba="0.08 0.08 0.08 1"/></material></visual>
+      <collision><geometry><box size="0.0085 0.002 0.009"/></geometry></collision>
+    </link>
+    <joint name="${tile}_spring" type="prismatic">
+      <parent link="${parent}"/><child link="${tile}"/>
+      <origin xyz="${sx*0.004375} ${side*0.00098} ${0.04525+sz*0.004625}"/>
+      <!-- Positive displacement compresses towards the finger backing. -->
+      <axis xyz="0 ${side} 0"/>
+      <limit lower="0" upper="${travel}" effort="50" velocity="0.2"/>
+      <dynamics damping="${damping}" friction="0"/>
+    </joint>
+    <gazebo reference="${tile}_spring"><springReference>0</springReference><springStiffness>${stiffness}</springStiffness></gazebo>
+    <gazebo reference="${tile}"><mu1>1.5</mu1><mu2>1.5</mu2><material>Gazebo/Black</material></gazebo>
+  </xacro:macro>
+  <xacro:macro name="compliant_finger_pad" params="parent side stiffness damping travel">
+    <xacro:compliant_pad_tile parent="${parent}" side="${side}" sx="-1" sz="-1" stiffness="${stiffness}" damping="${damping}" travel="${travel}"/>
+    <xacro:compliant_pad_tile parent="${parent}" side="${side}" sx="-1" sz="1" stiffness="${stiffness}" damping="${damping}" travel="${travel}"/>
+    <xacro:compliant_pad_tile parent="${parent}" side="${side}" sx="1" sz="-1" stiffness="${stiffness}" damping="${damping}" travel="${travel}"/>
+    <xacro:compliant_pad_tile parent="${parent}" side="${side}" sx="1" sz="1" stiffness="${stiffness}" damping="${damping}" travel="${travel}"/>
+  </xacro:macro>
+</robot>

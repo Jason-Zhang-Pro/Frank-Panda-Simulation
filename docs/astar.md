@@ -30,10 +30,10 @@ ros2 topic echo /planner_status --qos-durability transient_local
 ALGORITHMS=astar RUNS=3 TIMEOUT=30.0 ./tools/compare_gazebo.sh
 ```
 
-四算法统一采集：
+五算法统一采集：
 
 ```bash
-ALGORITHMS='rrt rrt_connect rrt_star astar' RUNS=3 TIMEOUT=30.0 ./tools/compare_gazebo.sh
+ALGORITHMS='rrt rrt_connect rrt_star astar prm_astar' RUNS=3 TIMEOUT=30.0 ./tools/compare_gazebo.sh
 ```
 
-默认对比工具已包含四算法；现有三算法报告保持原始实验范围，不补写未运行的 A* 成功率。已通过编译、离线直连、需要网格扩展的查询，以及超时退出检查；这些不等同于完整物理抓放验证。A* 为确定性图搜索，同一静态请求重复种子不产生不同随机搜索；Gazebo 中实际请求状态仍可能变化。
+默认对比工具已包含五算法，实际记录见[五算法统一报告](five_planner_comparison.md)。已通过编译与离线调用，并纳入五算法物理任务记录。本次三次物理任务均在初始接近搜索超时，不能据此判断连续空间不可达。A* 为确定性图搜索，同一静态请求重复种子不产生不同随机搜索；Gazebo 中实际请求状态仍可能变化。

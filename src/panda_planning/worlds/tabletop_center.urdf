@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="panda_tabletop_world">
+  <link name="obstacle_world_root" />
+  <gazebo>
+    <static>true</static>
+  </gazebo>
+  <material name="floor">
+    <color rgba=".42 .45 .50 1" />
+  </material>
+  <material name="pillar">
+    <color rgba=".90 .35 .18 1" />
+  </material>
+  <material name="frame">
+    <color rgba=".20 .45 .80 1" />
+  </material>
+  <material name="wall">
+    <color rgba=".75 .65 .25 1" />
+  </material>
+  <material name="shelf">
+    <color rgba=".35 .65 .45 1" />
+  </material>
+  <material name="rock">
+    <color rgba=".55 .38 .68 1" />
+  </material>
+  <material name="target">
+    <color rgba=".95 .08 .08 1" />
+  </material>
+  <material name="partition">
+    <color rgba=".85 .65 .15 1" />
+  </material>
+  <material name="steel">
+    <color rgba=".16 .36 .68 1" />
+  </material>
+  <material name="bin">
+    <color rgba=".05 .65 .75 1" />
+  </material>
+  <material name="rack">
+    <color rgba=".35 .62 .42 1" />
+  </material>
+  <material name="block">
+    <color rgba=".60 .35 .68 1" />
+  </material>
+  <link name="floor">
+    <inertial>
+      <mass value="360.0" />
+      <inertia ixx="270.19199999999995" iyy="270.19199999999995" izz="540.0" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="3 3 0.08" />
+      </geometry>
+      <material name="floor" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="3 3 0.08" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="floor_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="floor" />
+    <origin xyz="0 0 -0.04" rpy="0 0 0" />
+  </joint>
+  <link name="target_pedestal">
+    <inertial>
+      <mass value="21.504" />
+      <inertia ixx="0.49960960000000004" iyy="0.49960960000000004" izz="0.36700160000000004" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.32 0.32 0.17" />
+      </geometry>
+      <material name="shelf" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.32 0.32 0.17" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="target_pedestal_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="target_pedestal" />
+    <origin xyz="0.6 0.22 0.335" rpy="0 0 0" />
+  </joint>
+  <link name="target_cube">
+    <inertial>
+      <mass value="0.10799999999999998" />
+      <inertia ixx="6.479999999999999e-05" iyy="6.479999999999999e-05" izz="6.479999999999999e-05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.06 0.06 0.06" />
+      </geometry>
+      <material name="target" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.06 0.06 0.06" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="target_cube_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="target_cube" />
+    <origin xyz="0.6 0.22 0.45" rpy="0 0 0" />
+  </joint>
+  <link name="place_pedestal">
+    <inertial>
+      <mass value="20.736" />
+      <inertia ixx="0.400896" iyy="0.400896" izz="0.44789759999999995" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.36 0.36 0.07" />
+      </geometry>
+      <material name="shelf" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.36 0.36 0.07" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="place_pedestal_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="place_pedestal" />
+    <origin xyz="0.58 -0.35 0.285" rpy="0 0 0" />
+  </joint>
+  <link name="worktop">
+    <visual>
+      <geometry>
+        <box size="0.92 1.52 0.06" />
+      </geometry>
+      <material name="worktop_color">
+        <color rgba=".42 .45 .50 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.92 1.52 0.06" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="worktop_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="worktop" />
+    <origin xyz="0.6 -0.12 0.22" rpy="0 0 0" />
+  </joint>
+  <link name="table_leg_a">
+    <visual>
+      <geometry>
+        <box size="0.07 0.07 0.19" />
+      </geometry>
+      <material name="table_leg_a_color">
+        <color rgba=".3 .3 .3 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.07 0.07 0.19" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="table_leg_a_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="table_leg_a" />
+    <origin xyz="0.22 0.53 0.095" rpy="0 0 0" />
+  </joint>
+  <link name="table_leg_b">
+    <visual>
+      <geometry>
+        <box size="0.07 0.07 0.19" />
+      </geometry>
+      <material name="table_leg_b_color">
+        <color rgba=".3 .3 .3 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.07 0.07 0.19" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="table_leg_b_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="table_leg_b" />
+    <origin xyz="0.98 0.53 0.095" rpy="0 0 0" />
+  </joint>
+  <link name="table_leg_c">
+    <visual>
+      <geometry>
+        <box size="0.07 0.07 0.19" />
+      </geometry>
+      <material name="table_leg_c_color">
+        <color rgba=".3 .3 .3 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.07 0.07 0.19" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="table_leg_c_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="table_leg_c" />
+    <origin xyz="0.22 -0.77 0.095" rpy="0 0 0" />
+  </joint>
+  <link name="table_leg_d">
+    <visual>
+      <geometry>
+        <box size="0.07 0.07 0.19" />
+      </geometry>
+      <material name="table_leg_d_color">
+        <color rgba=".3 .3 .3 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.07 0.07 0.19" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="table_leg_d_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="table_leg_d" />
+    <origin xyz="0.98 -0.77 0.095" rpy="0 0 0" />
+  </joint>
+  <link name="divider">
+    <visual>
+      <geometry>
+        <box size="0.28 0.045 0.3" />
+      </geometry>
+      <material name="divider_color">
+        <color rgba=".85 .65 .2 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.28 0.045 0.3" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="divider_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="divider" />
+    <origin xyz="0.73 -0.1 0.4" rpy="0 0 0" />
+  </joint>
+  <link name="table_column">
+    <visual>
+      <geometry>
+        <box size="0.065 0.065 0.46" />
+      </geometry>
+      <material name="table_column_color">
+        <color rgba=".9 .35 .18 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.065 0.065 0.46" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="table_column_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="table_column" />
+    <origin xyz="0.93 0.35 0.48" rpy="0 0 0" />
+  </joint>
+  <link name="table_column_inner">
+    <visual>
+      <geometry>
+        <box size="0.055 0.055 0.36" />
+      </geometry>
+      <material name="table_column_inner_color">
+        <color rgba=".9 .35 .18 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.055 0.055 0.36" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="table_column_inner_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="table_column_inner" />
+    <origin xyz="0.28 0.48 0.43" rpy="0 0 0" />
+  </joint>
+  <link name="table_header">
+    <visual>
+      <geometry>
+        <box size="0.48 0.055 0.055" />
+      </geometry>
+      <material name="table_header_color">
+        <color rgba=".2 .45 .8 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.48 0.055 0.055" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="table_header_fixed" type="fixed">
+    <parent link="obstacle_world_root" />
+    <child link="table_header" />
+    <origin xyz="0.7 0.49 0.79" rpy="0 0 0" />
+  </joint>
+</robot>

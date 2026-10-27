@@ -1,0 +1,42 @@
+from pathlib import Path
+import csv,re,json,statistics,sys
+root=Path(sys.argv[1]); algorithms=['rrt','rrt_connect','rrt_star','astar','prm_astar']; stages=['approach','descend','lift','transfer','lower','retreat','home'];trials=[];phases=[]
+for f in sorted(root.glob('*_task.csv')):
+ t=next(csv.DictReader(f.open()));trials.append(t);log=f.with_name(f.name.replace('_task.csv','_launch.log')).read_text(errors='replace');current=None;index=-1
+ for line in log.splitlines():
+  event=re.search(r'\[([0-9.]+)\] \[panda_ompl_planner\]: (.*)',line);msg=event[2] if event else ''
+  if msg.startswith('planning:'):
+   index+=1;current=dict(algorithm=t['algorithm'],seed=t['seed'],stage=stages[index] if index<len(stages) else str(index),plan_success=0,execution_arrived=0,start_wall_s=float(event[1]));phases.append(current)
+  if current is None:continue
+  m=re.search(r'(?:搜索|OMPL): ([0-9.]+)s，原始路径 (\d+) 点，输出轨迹 (\d+) 点，复检 (\d+) 样本，轨迹 ([0-9.]+)s，模式 (\S+)',line)
+  if m:current.update(plan_success=1,search_s=float(m[1]),raw_points=int(m[2]),output_points=int(m[3]),checked_samples=int(m[4]),reference_s=float(m[5]),mode=m[6],pipeline_wall_s=float(event[1])-current['start_wall_s'])
+  m=re.search(r'Solution found in ([0-9.]+) seconds',line)
+  if m:current['solver_reported_s']=float(m[1])
+  m=re.search(r'planner=(\w+) \| first_solution=([-0-9.]+)s \| raw_length=([0-9.]+) \| shortcut_length=([0-9.]+) \| validity_queries=(\d+)',line)
+  if m:current.update(planner=m[1],first_solution_s=float(m[2]) if float(m[2])>=0 else '',raw_length_rad=float(m[3]) if m[1]!='cartesian_ik' else '',shortcut_length_rad=float(m[4]) if m[1]!='cartesian_ik' else '',validity_queries=int(m[5]) if m[1]!='cartesian_ik' else '')
+  m=re.search(r'roadmap: build=([0-9.]+)s query=([0-9.]+)s reused=(true|false) nodes=(\d+) edges=(\d+)',line)
+  if m:current.update(roadmap_build_s=float(m[1]),roadmap_query_s=float(m[2]),roadmap_reused=m[3],roadmap_nodes=int(m[4]),roadmap_edges=int(m[5]))
+  if msg.startswith('failed:'):
+   current['failure']=msg
+   if not current['plan_success']:current['pipeline_wall_s']=float(event[1])-current['start_wall_s']
+  if msg.startswith('succeeded:'):current['execution_arrived']=1
+ if t['terminal'].startswith(('pick_place_failed:','pick_place_home_failed:')):
+  t['failure_stage']=current['stage'] if current else 'before_planning'
+  if '放置位置' in t['terminal'] or '放置后' in t['terminal']:t['failure_stage']='release_or_place_check'
+ else:t['failure_stage']='' if t['success']=='1' else 'runner_or_request'
+summary=[]
+for alg in algorithms:
+ ts=[t for t in trials if t['algorithm']==alg]
+ if not ts:continue
+ ap=[p for p in phases if p['algorithm']==alg and p['stage']=='approach'];good=[p for p in ap if p['plan_success']];trans=[p for p in phases if p['algorithm']==alg and p['stage']=='transfer'];ok=[t for t in ts if t['success']=='1']
+ row=dict(algorithm=alg,trials=len(ts),task_successes=len(ok),transfer_attempts=len(trans),transfer_plan_successes=sum(p['plan_success'] for p in trans),approach_attempts=len(ap),approach_plan_successes=len(good),successful_task_wall_mean_s=statistics.mean(float(t['task_wall_s']) for t in ok) if ok else '',successful_task_sim_mean_s=statistics.mean(float(t['task_sim_s']) for t in ok) if ok else '')
+ for key in ['search_s','first_solution_s','pipeline_wall_s','raw_length_rad','shortcut_length_rad']:
+  values=[float(p[key]) for p in good if p.get(key,'')!=''];row['approach_mean_'+key]=statistics.mean(values) if values else ''
+ summary.append(row)
+def write(name,rows):
+ keys=list(dict.fromkeys(k for row in rows for k in row))
+ if not keys:return
+ with (root/name).open('w') as h:
+  w=csv.DictWriter(h,fieldnames=keys);w.writeheader();w.writerows(rows)
+write('trials.csv',trials);write('phases.csv',phases);write('summary.csv',summary)
+(root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2));print(json.dumps(summary,ensure_ascii=False,indent=2))

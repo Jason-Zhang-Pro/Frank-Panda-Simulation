@@ -1,0 +1,5 @@
+wall_elapsed_s,sim_time_s,status
+0.000213299,1.518,"pick_opening: C++ 抓放任务开始，张开夹爪"
+0.007981754,1.526,"planning: C++ astar；七关节、静态环境及自碰撞检查"
+30.018789604,31.536,"failed: astar 搜索超时：七维网格未找到精确路径"
+30.028778149,31.546,"pick_place_failed: failed: astar 搜索超时：七维网格未找到精确路径；保持夹爪指令"

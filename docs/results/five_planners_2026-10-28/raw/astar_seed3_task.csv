@@ -1,0 +1,2 @@
+algorithm,seed,success,task_wall_s,task_sim_s,planned_segments,arrived_segments,planned_length_rad,actual_sampled_length_rad,reference_s,cube_x,cube_y,cube_z,terminal
+astar,3,0,30.020841004,30.02,0,0,0,0.00858942854389,0,0.6,0.22,0.449999420618,"pick_place_failed: failed: astar 搜索超时：七维网格未找到精确路径；保持夹爪指令"

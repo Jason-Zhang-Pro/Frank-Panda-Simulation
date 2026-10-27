@@ -49,7 +49,7 @@ int main(int argc,char **argv) {
   const bool header=!std::filesystem::exists(path)||std::filesystem::file_size(path)==0;
   std::ofstream out(path,std::ios::app);
   if(!out){std::cerr<<"无法写入 CSV: "<<path<<'\n';rclcpp::shutdown();return 1;}
-  if(header)out<<"planner,seed,budget_s,shortcut,bspline,success,search_s,first_solution_s,total_wall_s,raw_points,raw_length_rad,shortcut_length_rad,trajectory_length_rad,duration_s,checked_samples,validity_queries,trajectory_type,error\n";
+  if(header)out<<"planner,seed,budget_s,shortcut,bspline,success,search_s,first_solution_s,total_wall_s,raw_points,raw_length_rad,shortcut_length_rad,trajectory_length_rad,duration_s,checked_samples,validity_queries,trajectory_type,roadmap_build_s,roadmap_query_s,roadmap_reused,roadmap_nodes,roadmap_edges,error\n";
   double trajectory_length=0;
   for(std::size_t i=1;i<result.trajectory.points.size();++i) {
     double squared=0;for(int j=0;j<7;++j)squared+=std::pow(result.trajectory.points[i].positions[j]-result.trajectory.points[i-1].positions[j],2);
@@ -60,6 +60,8 @@ int main(int argc,char **argv) {
   out<<','<<wall<<',';
   if(success)out<<result.raw_points<<','<<result.raw_length<<','<<result.shortcut_length<<','<<trajectory_length<<','<<result.duration<<','<<result.checked_samples<<','<<result.validity_queries<<','<<result.trajectory_type;
   else out<<",,,,,,,";
+  if(success)out<<','<<result.roadmap_build_seconds<<','<<result.roadmap_query_seconds<<','<<result.roadmap_reused<<','<<result.roadmap_nodes<<','<<result.roadmap_edges;
+  else out<<",,,,,";
   out<<','<<csv(error)<<'\n';out.close();
   std::cout<<algorithm<<" seed="<<seed<<" success="<<success<<" total_wall_s="<<wall<<' '<<error<<'\n';
   rclcpp::shutdown();return 0; // Planning failures are recorded, not hidden by early batch exit.

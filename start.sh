@@ -17,4 +17,13 @@ if ! flock -n 9; then
   echo "Panda 已在运行，请先在原启动终端按 Ctrl+C。"
   exit 1
 fi
+# Select the PRM tabletop unless the caller explicitly selected a scene.
+panda_has_scene=false
+panda_prm=false
+for panda_arg in "$@"; do
+  case "$panda_arg" in scene:=*) panda_has_scene=true;; planner_algorithm:=prm_astar) panda_prm=true;; esac
+done
+if [[ "$panda_prm" == true && "$panda_has_scene" == false ]]; then
+  set -- "$@" scene:=tabletop
+fi
 exec ros2 launch panda_planning panda_world.launch.xml "$@"

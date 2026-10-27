@@ -1,0 +1,56 @@
+<launch>
+  <arg name="compliant_pads" default="false"/>
+  <arg name="pad_stiffness" default="10000"/>
+  <arg name="pad_damping" default="1.4"/>
+  <arg name="pad_travel" default="0.0015"/>
+  <arg name="scene" default="world"/>
+  <arg name="planning_timeout" default="15.0"/>
+  <arg name="seed" default="3"/>
+  <arg name="gui" default="true"/>
+  <arg name="auto_play" default="true"/>
+  <arg name="planner_algorithm" default="rrt_connect"/>
+  <arg name="cartesian_timing" default="bounded"/>
+  <arg name="trajectory_smoothing" default="bspline"/>
+  <arg name="velocity_scale" default="0.3"/>
+  <arg name="acceleration_limit" default="0.9"/>
+  <let name="description_share" value="$(find-pkg-share franka_description)"/>
+  <let name="planning_share" value="$(find-pkg-share panda_planning)"/>
+  <set_env name="IGN_GAZEBO_RESOURCE_PATH" value="$(var description_share)/..:$(env IGN_GAZEBO_RESOURCE_PATH '')"/>
+  <!-- No -r: the C++ startup node activates controllers using paused steps. -->
+  <executable cmd="ign gazebo -s $(var planning_share)/worlds/$(var scene).sdf" output="screen" on_exit="shutdown"/>
+  <executable cmd="ign gazebo -g" output="screen" if="$(var gui)"/>
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher" output="screen">
+    <param name="robot_description" type="str" value="$(command 'xacro $(var description_share)/robots/panda/panda_sim.urdf.xacro compliant_pads:=$(var compliant_pads) pad_stiffness:=$(var pad_stiffness) pad_damping:=$(var pad_damping) pad_travel:=$(var pad_travel)')"/>
+    <param name="use_sim_time" value="true"/>
+  </node>
+  <node pkg="panda_ompl" exec="control_node" output="screen" on_exit="shutdown">
+    <param from="$(find-pkg-share panda_ompl)/config/controller.yaml"/>
+  </node>
+  <node pkg="panda_ompl" exec="planner_node" output="screen" on_exit="shutdown">
+    <param name="use_sim_time" value="true"/>
+    <!-- Conservative undeformed envelope for collision planning; passive tile
+         joints are simulated only and are not commanded by ros2_control. -->
+    <param name="planning_robot_description" type="str" value="$(command 'xacro $(var description_share)/robots/panda/panda_sim.urdf.xacro compliant_pads:=false')"/>
+    <param name="world_urdf" value="$(var planning_share)/worlds/$(var scene).urdf"/>
+    <param name="planner_algorithm" value="$(var planner_algorithm)"/>
+    <param name="seed" value="$(var seed)"/>
+    <param name="planning_timeout" value="$(var planning_timeout)"/>
+    <param name="cartesian_timing" value="$(var cartesian_timing)"/>
+    <param name="trajectory_smoothing" value="$(var trajectory_smoothing)"/>
+    <param name="velocity_scale" value="$(var velocity_scale)"/>
+    <param name="acceleration_limit" value="$(var acceleration_limit)"/>
+  </node>
+  <node pkg="ros_gz_bridge" exec="parameter_bridge" output="screen"
+        args="/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock /target_contacts@ros_gz_interfaces/msg/Contacts[ignition.msgs.Contacts /world/empty/dynamic_pose/info@tf2_msgs/msg/TFMessage[ignition.msgs.Pose_V /world/empty/control@ros_gz_interfaces/srv/ControlWorld"/>
+  <node pkg="ros_gz_sim" exec="create" output="screen"
+        args="-world empty -name panda -topic /robot_description -allow_renaming false"/>
+  <node pkg="controller_manager" exec="spawner" output="screen"
+        args="joint_state_broadcaster -c /controller_manager --inactive --controller-manager-timeout 60"/>
+  <node pkg="controller_manager" exec="spawner" output="screen"
+        args="panda_effort_controller -c /controller_manager --inactive --controller-manager-timeout 60"/>
+  <node pkg="controller_manager" exec="spawner" output="screen"
+        args="panda_gripper_controller -c /controller_manager --inactive --controller-manager-timeout 60"/>
+  <node pkg="panda_ompl" exec="startup_node" output="screen" on_exit="shutdown">
+    <param name="auto_play" value="$(var auto_play)"/>
+  </node>
+</launch>

@@ -1,0 +1,2 @@
+algorithm,seed,success,task_wall_s,task_sim_s,planned_segments,arrived_segments,planned_length_rad,actual_sampled_length_rad,reference_s,cube_x,cube_y,cube_z,terminal
+rrt_star,1,0,163.293785102,152.162,6,6,8.41289549046,8.4445004937,64.008642367,0.319592127552,-0.549743484537,0.3499999902,"pick_place_home_failed: failed: rrt_star 未找到精确路径：Approximate solution；保持夹爪指令"

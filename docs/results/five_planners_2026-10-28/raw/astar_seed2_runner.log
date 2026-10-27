@@ -1,0 +1,1 @@
+TRIAL_DONE success=0 wall_s=30.0288 pick_place_failed: failed: astar 搜索超时：七维网格未找到精确路径；保持夹爪指令

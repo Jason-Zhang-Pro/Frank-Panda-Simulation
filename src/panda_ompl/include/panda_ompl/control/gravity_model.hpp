@@ -66,6 +66,9 @@ class GravityModel {
           } else if(joint->type==urdf::Joint::PRISMATIC&&
                     (joint->name=="panda_finger_joint1"||joint->name=="panda_finger_joint2")) {
             frame.translate(axis*fingers[joint->name=="panda_finger_joint1"?0:1]);
+          } else if(joint->type==urdf::Joint::PRISMATIC&&joint->name.find("finger_pad_")!=std::string::npos) {
+            // Passive tile displacement is not in controller feedback. Include
+            // tile mass at its zero-compression location (<=1.5 mm error).
           } else throw std::runtime_error("不支持的活动关节："+joint->name);
         }
         visit(model.getLink(joint->child_link_name),frame,next);

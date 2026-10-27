@@ -1,0 +1,1 @@
+STARTUP_FAILED algorithm=astar seed=1 log=/home/jasonz/panda_control_ws/results/five_planners_20261028/formal/astar_seed1_launch.log

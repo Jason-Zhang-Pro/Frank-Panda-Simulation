@@ -1,0 +1,7 @@
+# 五算法统一Gazebo实验原始数据
+
+15次全新独立任务，五算法各三个种子。场景world、compliant_pads=true、30秒全局搜索预算。所有已提交任务的失败保留。完整成功要求七段均到位，失败长度与耗时仅为前缀。
+
+raw目录保存每次任务CSV、事件、启动及采集日志和完整batch日志。trials/phases/summary为提取汇总，metric_extraction.txt保存提取逻辑。robot.urdf为实际柔顺模型，planning_robot.urdf为碰撞规划包络；world URDF/SDF、控制配置和launch为输入快照。source_sha256保存试验实现哈希，SHA256SUMS用于校验归档完整性。PRM固定图种子42，不是三个独立随机图。
+
+没有删除或重跑已提交的失败任务。若任务前存在启动失败，其日志单独保留，不混入有效任务成功率。独立任务的冷图和任务内部不同阶段的复用查询不构成相同请求的加速比。

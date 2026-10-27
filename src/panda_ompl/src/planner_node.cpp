@@ -23,6 +23,7 @@ public:
   PandaPlannerNode():Node("panda_ompl_planner") {
     declare_parameter("world_urdf",std::string(""));
     declare_parameter("goal_joint_positions",std::vector<double>{.3,-.785398,0.,-2.356194,0.,1.570796,.785398});
+    declare_parameter("planning_robot_description",std::string(""));
     declare_parameter("planner_algorithm",std::string("rrt_connect"));
     declare_parameter("cartesian_timing",std::string("bounded"));
     declare_parameter("trajectory_smoothing",std::string("bspline"));
@@ -47,7 +48,8 @@ public:
         if(engine_)return;
         try {
           if(get_parameter("world_urdf").as_string().empty())throw std::runtime_error("请通过 start_cpp.sh 启动，或指定 world_urdf 参数");
-          engine_=std::make_shared<panda_ompl::PlanningEngine>(m->data,get_parameter("world_urdf").as_string());
+          const auto proxy=get_parameter("planning_robot_description").as_string();
+          engine_=std::make_shared<panda_ompl::PlanningEngine>(proxy.empty()?m->data:proxy,get_parameter("world_urdf").as_string());
           status("idle: C++ 规划器就绪，已加载 "+std::to_string(engine_->object_count())+" 个世界碰撞体；等待实际状态及目标");
         } catch(const std::exception &e){engine_.reset();status(std::string("model_failed: ")+e.what());}
       });
@@ -198,6 +200,10 @@ private:
           cached_->search_seconds,cached_->raw_points,count,cached_->checked_samples,cached_->duration,cached_->trajectory_type.c_str());
         RCLCPP_INFO(get_logger(),"planner=%s | first_solution=%.3fs | raw_length=%.4f | shortcut_length=%.4f | validity_queries=%zu",
           cached_->planner.c_str(),cached_->first_solution_seconds,cached_->raw_length,cached_->shortcut_length,cached_->validity_queries);
+        if(cached_->planner=="prm_astar")RCLCPP_INFO(get_logger(),
+          "roadmap: build=%.6fs query=%.6fs reused=%s nodes=%zu edges=%zu",
+          cached_->roadmap_build_seconds,cached_->roadmap_query_seconds,
+          cached_->roadmap_reused?"true":"false",cached_->roadmap_nodes,cached_->roadmap_edges);
         if(!cached_->smoothing_note.empty())RCLCPP_INFO(get_logger(),"%s",cached_->smoothing_note.c_str());
         preview_pub_->publish(cached_->trajectory);
         status("planned: 路径、实际插值碰撞及限速检查通过；/ompl_execute 执行");

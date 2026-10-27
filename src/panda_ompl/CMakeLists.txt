@@ -26,7 +26,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(shape_msgs REQUIRED)
 find_package(moveit_msgs REQUIRED)
 
-add_library(panda_planning_engine src/planning_engine.cpp src/astar_planner.cpp src/bspline_trajectory.cpp src/cartesian_servo.cpp)
+add_library(panda_planning_engine src/planning_engine.cpp src/astar_planner.cpp src/prm_astar_planner.cpp src/bspline_trajectory.cpp src/cartesian_servo.cpp)
 set_target_properties(panda_planning_engine PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(panda_planning_engine PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -40,7 +40,7 @@ target_link_libraries(panda_planning_engine ${OMPL_LIBRARIES})
 add_executable(control_node src/control_node.cpp)
 target_include_directories(control_node PRIVATE include)
 target_link_libraries(control_node Eigen3::Eigen)
-ament_target_dependencies(control_node rclcpp sensor_msgs std_msgs trajectory_msgs rosgraph_msgs urdf)
+ament_target_dependencies(control_node rclcpp sensor_msgs std_msgs trajectory_msgs rosgraph_msgs urdf ros_gz_interfaces)
 install(TARGETS control_node DESTINATION lib/${PROJECT_NAME})
 install(DIRECTORY config/ DESTINATION share/${PROJECT_NAME}/config)
 
